@@ -51,26 +51,23 @@ class QueryService(object):
         result = {}
         
         try:
+            executeQuery = queryInfo["query"]
+            
             if not dict:
-                executeQuery = queryInfo["query"]
                 result = conn.execute(executeQuery)
             else:
                 paramInfo = self.manager.getParam(queryInfo, dict);
-                result = conn.execute(queryInfo["query"], paramInfo)
+                result = conn.execute(executeQuery, paramInfo)
         except Exception, e:
             print e
-            pass
-        
-        fieldList = result._metadata.keys
         
         resultList = []
         
         for raw in result:
             data = {}
             
-            for field in fieldList:
-                field = field.encode("utf-8")
-                data[field] = raw[field].encode("utf-8")
+            for column, value in raw.items():
+                data[column] = value
             
             resultList.append(data)
         
