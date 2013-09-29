@@ -24,4 +24,8 @@ urlpatterns = patterns('',
     url(r'^jqgrid_main/', 'LogService.views.jqgrid_main', name='jqgrid_main'),
     url(r'^data_load/', 'LogService.views.data_load', name='data_load'),
     
+    url(r'^DbQuery/', 'DbService.views.index', name='index'),
+    
+    url(r'^query/execute/$', 'DbService.views.executeQuery', name='index'),
+    url(r'^query/update/$', 'DbService.views.updateQuery', name='index'),
 )
