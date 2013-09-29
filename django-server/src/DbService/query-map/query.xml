@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <data xmlns="data">
-   	<query id="CreateTable" description="">
+   	<query id="CreateTable" description="Create User Table">
    	    <sql>
 	   	    CREATE TABLE users (
 	            username VARCHAR PRIMARY KEY,
@@ -8,40 +8,22 @@
 	        )
         </sql>
    	</query>
-   	<query id="InsertUser" description="">
+   	<query id="InsertUser" description="Insert User Table">
    	    <sql>
 	   	    INSERT INTO users (username, password) VALUES (?, ?)
         </sql>
         <parameter>
-            <param id="username"/>
-            <param id="password"/>
+            <param id="username" description=""/>
+            <param id="password" description=""/>
         </parameter>
    	</query>
-   	<query id="SelectUser" description="">
+   	<query id="SelectUser" description="Select User Table">
    	    <sql>
 	   	    SELECT username, password FROM users
         </sql>
    	</query>
-    <query id="TableList" description="">
-        <sql>
-            SELECT name, type FROM sqlite_master WHERE type = 'table'
-        </sql>
-    </query>
-    <query id="ImgList" description="">
-        <sql>
-            select num, imgname,ifnull(imgdate,'') as imgdate,photo,ifnull(photos.id,0) as photocheck from imginfo left outer join photos on imginfo.num =  photos.id 
-        </sql>
-    </query>
-    <query id="deletePhoto" description="">
-        <sql>
-            DELETE phots
-            WHERE id = ?
-        </sql>
-        <parameter>
-            <param id="no"/>
-        </parameter>
-    </query>
-    <query id="insertMember" description="">
+   	
+    <query id="insertMember" description="Insert Member Table">
         <sql>
             INSERT INTO member
                 (name, nickname, grade, job, phone, mail, cacaotalkid, ichatid)
@@ -49,18 +31,18 @@
                 (?, ?, ?, ?, ?, ?, ?, ?)
         </sql>
         <parameter>
-            <param id="name"/>
-            <param id="nickname"/>
-            <param id="grade"/>
-            <param id="job"/>
-            <param id="phone"/>
-            <param id="mail"/>
-            <param id="cacaotalkid"/>
-            <param id="ichatid"/>
+            <param id="name" description=""/>
+            <param id="nickname" description=""/>
+            <param id="grade" description=""/>
+            <param id="job" description=""/>
+            <param id="phone" description=""/>
+            <param id="mail" description=""/>
+            <param id="cacaotalkid" description=""/>
+            <param id="ichatid" description=""/>
         </parameter>
     </query>
     
-    <query id="updateMember" description="">
+    <query id="updateMember" description="Update Member Table">
         <sql>
             UPDATE member
             SET 
@@ -75,25 +57,25 @@
             WHERE no = ?
         </sql>
         <parameter>
-            <param id="name"/>
-            <param id="nickname"/>
-            <param id="grade"/>
-            <param id="job"/>
-            <param id="phone"/>
-            <param id="mail"/>
-            <param id="cacaotalkid"/>
-            <param id="ichatid"/>
-            <param id="no"/>
+            <param id="name" description=""/>
+            <param id="nickname" description=""/>
+            <param id="grade" description=""/>
+            <param id="job" description=""/>
+            <param id="phone" description=""/>
+            <param id="mail" description=""/>
+            <param id="cacaotalkid" description=""/>
+            <param id="ichatid" description=""/>
+            <param id="no" description=""/>
         </parameter>
     </query>
     
-    <query id="deleteMember" description="">
+    <query id="deleteMember" description="Delete Member Table">
         <sql>
             DELETE member
             WHERE no = ?
         </sql>
         <parameter>
-            <param id="no"/>
+            <param id="no" description=""/>
         </parameter>
     </query>
 </data> 

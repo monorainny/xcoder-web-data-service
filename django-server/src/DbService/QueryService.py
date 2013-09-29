@@ -47,11 +47,12 @@ class QueryService(object):
         
         try:
             if not dict:
-                result = conn.execute(queryInfo["query"])
+                executeQuery = queryInfo["query"]
+                result = conn.execute(executeQuery)
             else:
                 paramInfo = self.manager.getParam(queryInfo, dict);
                 result = conn.execute(queryInfo["query"], paramInfo)
-        except:
+        except Exception, e:
             pass
         
         fieldList = result._metadata.keys

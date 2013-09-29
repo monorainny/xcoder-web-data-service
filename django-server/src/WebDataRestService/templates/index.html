@@ -61,7 +61,16 @@
 	 				cache: false,
 	 				//success
 	 				success: function (data) {
-						$("#regist_result").text(data.result);
+	 					var resultData;
+	 					
+	 					resultData = data.result;
+						
+						$.each( data.data, function( i, item ) {
+							resultData += "<br>" + item.username;
+					    });
+						
+						
+						$("#regist_result").text(resultData);
 					}
 	    		});
 	    	});

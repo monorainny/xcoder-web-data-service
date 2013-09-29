@@ -29,7 +29,7 @@ def main(request):
     return render_to_response('main.html', RequestContext(request));
 
 def jqgrid_main(request):
-    return render_to_response('test.php', RequestContext(request));
+    return render_to_response('jqgrid/test.php', RequestContext(request));
 
 def data_load(request):
     try:
@@ -41,10 +41,11 @@ def data_load(request):
     
     for entry in query_log:
         user = {
+            'user': entry.user,
             'query_id': entry.query_id,
             'query_text': entry.query_text,
-            'getQueryStarDtm': entry.getQueryStarDtm,
-            'getQueryEndDtm': entry.getQueryEndDtm,            
+            'getQueryStarDtm': entry.getQueryStarDtm(),
+            'getQueryEndDtm': entry.getQueryEndDtm(),    
         }
         
         data.append(user)

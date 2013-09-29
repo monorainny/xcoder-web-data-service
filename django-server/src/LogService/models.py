@@ -32,7 +32,7 @@ class TbCmQuery(models.Model):
     query_desc = models.CharField(max_length=200,null=False)
     query_text = models.TextField()
     action_type = models.CharField(max_length=1,null=False)
-    regist_user = models.ForeignKey(TbCmUserAuth)
+    regist_user = models.CharField(max_length=40,null=True)
 
 class TbCmQueryParam(models.Model):
     """
@@ -58,15 +58,15 @@ class TbCmQueryLog(models.Model):
     @param query_end_dtm : 쿼리 수행 종료 시간
     """
     regist_dtm = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(TbCmUserAuth)
+    user = models.CharField(max_length=40,null=True)
     query_id = models.CharField(max_length=20,null=True)
     query_text = models.TextField()
     query_start_dtm = models.DateTimeField()
     query_end_dtm = models.DateTimeField()
     
     def getQueryStarDtm(self):
-        return self.QueryStartDtm.strftime("%Y-%m-%d %H:%M:%S")
+        return self.query_start_dtm.strftime("%Y-%m-%d %H:%M:%S")
     
     def getQueryEndDtm(self):
-        return self.QueryEndDtm.strftime("%Y-%m-%d %H:%M:%S")
+        return self.query_end_dtm.strftime("%Y-%m-%d %H:%M:%S")
 

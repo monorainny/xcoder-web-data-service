@@ -14,19 +14,15 @@
 
 	<script type="text/javascript">
 		jQuery(document).ready(function(){
-
 				jQuery("#list2").jqGrid({
 					url:'/data_load',
 					datatype: "json",
-					colNames:['Inv No','Date', 'Client', 'Amount','Tax','Total','Notes'],
+					colNames:['User', 'Query', 'Start Date', 'End Date'],
 					colModel:[
-						{name:'id',index:'id', width:55},
-						{name:'invdate',index:'invdate', width:90},
-						{name:'name',index:'name asc, invdate', width:100},
-						{name:'amount',index:'amount', width:80, align:"right"},
-						{name:'tax',index:'tax', width:80, align:"right"},		
-						{name:'total',index:'total', width:80,align:"right"},		
-						{name:'note',index:'note', width:150, sortable:false}		
+						{name:'user',index:'user', width:55, align:"right"},
+						{name:'query_id',index:'query_id', width:90},
+						{name:'getQueryStarDtm',index:'getQueryStarDtm', width:100},
+						{name:'getQueryEndDtm',index:'getQueryEndDtm', width:110}
 					],
 					rowNum:10,
 					rowList:[10,20,30],
@@ -37,7 +33,6 @@
 					caption:"JSON Example"
 				});
 				jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
-
 		});
 
 </script>

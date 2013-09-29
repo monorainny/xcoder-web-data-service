@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
 
+from django.conf import settings
 from django.http import HttpResponse
 from django.template import Context
 from django.template.loader import get_template
-
 from django.utils import simplejson
+from django.utils.timezone import utc
+
+from datetime import datetime, timedelta
 
 from QueryService import *
+from LogService.models import TbCmQueryLog
+
+USE_TZ = getattr(settings, 'USE_TZ', False)
 
 # Create your views here.
 def index(request):
@@ -30,10 +36,12 @@ def executeQuery(request):
     
     dataSet = {}
     
-    if not queryData:
+    if queryData is not None and queryData != '':
         dataSet = createData(queryData)
     
     data = {}
+    
+    startTime = get_current_time()
     
     try:
         queryService = QueryService()
@@ -43,6 +51,10 @@ def executeQuery(request):
         data["data"] = result
     except:
         data["result"] = "false"
+    
+    finishTime = get_current_time()
+    
+    insertQueryLog('admin', queryId, startTime, finishTime)
     
     return HttpResponse(simplejson.dumps(data), mimetype='application/json')
 
@@ -56,10 +68,12 @@ def updateQuery(request):
     
     dataSet = {}
     
-    if not queryData:
+    if queryData is not None and queryData != '':
         dataSet = createData(queryData)
     
     data = {}
+    
+    startTime = get_current_time()
     
     try:
         queryService = QueryService()
@@ -69,18 +83,47 @@ def updateQuery(request):
     except:
         data["result"] = "false"
     
+    finishTime = get_current_time()
+    
+    insertQueryLog('admin', queryId, startTime, finishTime)
+    
     return HttpResponse(simplejson.dumps(data), mimetype='application/json')
 
 def createData(queryData):
     dataSet = {}
+    dataList = []
     
     try:
-        dataList = queryData.split["|"]
-        
-        for dataObject in dataList:
-            data = dataObject.split["~"]
-            dataSet[data[0]] = data[1]
-    except:
-        pass
+        dataList = queryData.split('|')
+    except Exception, e:
+        dataList.append(queryData)
+        print type(e);
+    
+    for dataObject in dataList:
+        data = dataObject.split('=')
+        dataSet[data[0]] = data[1]
     
     return dataSet
+
+def insertQueryLog(user_id, query_id, startTime, finishTime):
+    format = '%Y-%m-%d %H:%M:%S'
+    
+    cmQueryLog = TbCmQueryLog()
+    
+    cmQueryLog.user = user_id
+    cmQueryLog.query_id = query_id
+    cmQueryLog.query_text = ''
+    cmQueryLog.query_start_dtm = startTime
+    cmQueryLog.query_end_dtm = finishTime
+    
+    cmQueryLog.save()
+    
+def get_current_time():
+    """
+    Returns the current time setting the django timezone if the site is using
+    timezones.
+    """
+    if USE_TZ:
+        return datetime.utcnow().replace(tzinfo=utc)
+    else:
+        return datetime.now()
