@@ -6,26 +6,28 @@ from django.template import Context
 from django.template.loader import get_template
 from django.utils import simplejson
 from django.utils.timezone import utc
+from django.views.decorators.csrf import csrf_protect
 
-from datetime import datetime, timedelta
+from datetime import datetime
 
-from QueryService import *
 from LogService.models import TbCmQueryLog
+from QueryService import *
+from django.template.context import RequestContext
 
 USE_TZ = getattr(settings, 'USE_TZ', False)
 
 # Create your views here.
 def index(request):
     template = get_template('index.html')
-    variables = Context({
+    variables = RequestContext(request, {
         'head_title' : '기본검색',
         'page_title' : '사용자 관심자 정보를 설정합니다.',
-        'page_body' : '어떤 관심사',
     })
     
     output = template.render(variables)
     return HttpResponse(output)
 
+@csrf_protect
 def executeQuery(request):
     if request.method == 'GET':
         queryId=request.GET['queryId']
@@ -58,6 +60,7 @@ def executeQuery(request):
     
     return HttpResponse(simplejson.dumps(data), mimetype='application/json')
 
+@csrf_protect
 def updateQuery(request):
     if request.method == 'GET':
         queryId=request.GET['queryId']
@@ -106,8 +109,6 @@ def createData(queryData):
     return dataSet
 
 def insertQueryLog(user_id, query_id, startTime, finishTime):
-    format = '%Y-%m-%d %H:%M:%S'
-    
     cmQueryLog = TbCmQueryLog()
     
     cmQueryLog.user = user_id
