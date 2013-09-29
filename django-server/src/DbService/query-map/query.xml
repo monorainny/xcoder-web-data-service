@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<data xmlns="data">
+   	<query id="CreateTable" description="">
+   	    <sql>
+	   	    CREATE TABLE users (
+	            username VARCHAR PRIMARY KEY,
+	            password VARCHAR NOT NULL
+	        )
+        </sql>
+   	</query>
+   	<query id="InsertUser" description="">
+   	    <sql>
+	   	    INSERT INTO users (username, password) VALUES (?, ?)
+        </sql>
+        <parameter>
+            <param id="username"/>
+            <param id="password"/>
+        </parameter>
+   	</query>
+   	<query id="SelectUser" description="">
+   	    <sql>
+	   	    SELECT username, password FROM users
+        </sql>
+   	</query>
+    <query id="TableList" description="">
+        <sql>
+            SELECT name, type FROM sqlite_master WHERE type = 'table'
+        </sql>
+    </query>
+    <query id="ImgList" description="">
+        <sql>
+            select num, imgname,ifnull(imgdate,'') as imgdate,photo,ifnull(photos.id,0) as photocheck from imginfo left outer join photos on imginfo.num =  photos.id 
+        </sql>
+    </query>
+    <query id="deletePhoto" description="">
+        <sql>
+            DELETE phots
+            WHERE id = ?
+        </sql>
+        <parameter>
+            <param id="no"/>
+        </parameter>
+    </query>
+    <query id="insertMember" description="">
+        <sql>
+            INSERT INTO member
+                (name, nickname, grade, job, phone, mail, cacaotalkid, ichatid)
+            VALUES
+                (?, ?, ?, ?, ?, ?, ?, ?)
+        </sql>
+        <parameter>
+            <param id="name"/>
+            <param id="nickname"/>
+            <param id="grade"/>
+            <param id="job"/>
+            <param id="phone"/>
+            <param id="mail"/>
+            <param id="cacaotalkid"/>
+            <param id="ichatid"/>
+        </parameter>
+    </query>
+    
+    <query id="updateMember" description="">
+        <sql>
+            UPDATE member
+            SET 
+                name = ?, 
+                nickname = ?, 
+                grade = ?, 
+                job = ?, 
+                phone = ?, 
+                mail = ?, 
+                cacaotalkid = ?, 
+                ichatid = ?
+            WHERE no = ?
+        </sql>
+        <parameter>
+            <param id="name"/>
+            <param id="nickname"/>
+            <param id="grade"/>
+            <param id="job"/>
+            <param id="phone"/>
+            <param id="mail"/>
+            <param id="cacaotalkid"/>
+            <param id="ichatid"/>
+            <param id="no"/>
+        </parameter>
+    </query>
+    
+    <query id="deleteMember" description="">
+        <sql>
+            DELETE member
+            WHERE no = ?
+        </sql>
+        <parameter>
+            <param id="no"/>
+        </parameter>
+    </query>
+</data> 
