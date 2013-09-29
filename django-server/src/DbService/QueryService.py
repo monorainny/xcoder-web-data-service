@@ -4,8 +4,7 @@ import sqlalchemy.pool as pool
 from sqlalchemy import *
 from QueryManager import *
 
-engine = create_engine("mysql://root:monorain@127.0.0.1/WebDataRestService", pool_recycle=3600)
-print("Create Engine")
+engine = None
 
 class QueryService(object):
     manager = None
@@ -13,6 +12,12 @@ class QueryService(object):
     def __init__(self):
         globals()[self.__class__.__name__] = self
         self.manager=QueryManager()
+        
+        global engine
+        
+        if engine is None:
+            engine = create_engine("mysql://root:xcoder@14.63.199.221/WebDataRestService", pool_recycle=3600)
+            print("Create Engine")
     
     def __call__(self):
         return self
@@ -53,6 +58,7 @@ class QueryService(object):
                 paramInfo = self.manager.getParam(queryInfo, dict);
                 result = conn.execute(queryInfo["query"], paramInfo)
         except Exception, e:
+            print e
             pass
         
         fieldList = result._metadata.keys

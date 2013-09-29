@@ -2,11 +2,10 @@
 
 from django.conf import settings
 from django.http import HttpResponse
-from django.template import Context
 from django.template.loader import get_template
 from django.utils import simplejson
 from django.utils.timezone import utc
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
 from datetime import datetime
 
@@ -27,7 +26,8 @@ def index(request):
     output = template.render(variables)
     return HttpResponse(output)
 
-@csrf_protect
+@csrf_exempt
+@ensure_csrf_cookie
 def executeQuery(request):
     if request.method == 'GET':
         queryId=request.GET['queryId']
@@ -51,8 +51,9 @@ def executeQuery(request):
         
         data["result"] = "true"
         data["data"] = result
-    except:
+    except Exception, e:
         data["result"] = "false"
+        print e
     
     finishTime = get_current_time()
     
@@ -60,7 +61,8 @@ def executeQuery(request):
     
     return HttpResponse(simplejson.dumps(data), mimetype='application/json')
 
-@csrf_protect
+@csrf_exempt
+@ensure_csrf_cookie
 def updateQuery(request):
     if request.method == 'GET':
         queryId=request.GET['queryId']
@@ -83,8 +85,9 @@ def updateQuery(request):
         queryService.executeQuery(queryId, dataSet)
         
         data["result"] = "true"
-    except:
+    except Exception, e:
         data["result"] = "false"
+        print e
     
     finishTime = get_current_time()
     
