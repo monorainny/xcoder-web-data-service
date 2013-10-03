@@ -1,0 +1,21 @@
+<html>
+<head>
+
+   <title> 로그인 form</title>
+</head>
+<body>
+{% if form.errors %}
+<p>로그인 과정중 오류가 발생하였습니다.</p>
+<p>ID 와 암호를 확인해 주세요</p>
+{% endif %}
+<h2>사용자 로그인</h2>
+<form method="POST" action=".">{% csrf_token %}
+   <!-- form.username : ID를 위한 <INPUT TYPE="text" /> 삽입 //-->
+   <p><label for="userID">사용자 ID</label> {{ form.username }}</p>
+   <!-- # form.password : 암호를 위한 <INPUT TYPE="password" /> 삽입 //-->
+   <p><label for="userPWD">사용자 암호</label> {{ form.password }}</p>
+   <INPUT TYPE="HIDDEN" NAME="next" VALUE="/main_refresh" />
+   <INPUT TYPE="submit" VALUE="로그인" />
+</form>
+</body>
+</html>

@@ -29,15 +29,17 @@ class QueryService(object):
         result = {}
         
         try:
-            executeQuery = queryInfo["query"]
+            try:
+                executeQuery = queryInfo["query"]
+            except:
+                executeQuery = queryId
             
             if not dict:
                 result = conn.execute(executeQuery)
             else:
                 paramInfo = self.manager.getParam(queryInfo, dict);
                 result = conn.execute(executeQuery, paramInfo)
-        except Exception, e:
-            print e
+        except:
             raise
         finally:
             conn.close()

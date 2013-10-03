@@ -43,6 +43,8 @@ def executeQuery(request):
     
     data = {}
     
+    data['queryId'] = queryId
+    
     startTime = get_current_time()
     
     try:
@@ -57,7 +59,7 @@ def executeQuery(request):
     
     finishTime = get_current_time()
     
-    insertQueryLog('admin', queryId, startTime, finishTime)
+    insertQueryLog('admin', queryId, '', startTime, finishTime)
     
     return HttpResponse(simplejson.dumps(data), mimetype='application/json')
 
@@ -78,6 +80,8 @@ def updateQuery(request):
     
     data = {}
     
+    data['queryId'] = queryId
+    
     startTime = get_current_time()
     
     try:
@@ -85,13 +89,12 @@ def updateQuery(request):
         queryService.executeQuery(queryId, dataSet, False)
         
         data["result"] = "true"
-    except Exception, e:
+    except:
         data["result"] = "false"
-        print e
     
     finishTime = get_current_time()
     
-    insertQueryLog('admin', queryId, startTime, finishTime)
+    insertQueryLog('admin', queryId, '', startTime, finishTime)
     
     return HttpResponse(simplejson.dumps(data), mimetype='application/json')
 
@@ -101,9 +104,8 @@ def createData(queryData):
     
     try:
         dataList = queryData.split('|')
-    except Exception, e:
+    except:
         dataList.append(queryData)
-        print type(e);
     
     for dataObject in dataList:
         data = dataObject.split('=')
@@ -111,7 +113,7 @@ def createData(queryData):
     
     return dataSet
 
-def insertQueryLog(user_id, query_id, startTime, finishTime):
+def insertQueryLog(user_id, query_id, query_text, startTime, finishTime):
     cmQueryLog = TbCmQueryLog()
     
     cmQueryLog.user = user_id
@@ -123,10 +125,6 @@ def insertQueryLog(user_id, query_id, startTime, finishTime):
     cmQueryLog.save()
     
 def get_current_time():
-    """
-    Returns the current time setting the django timezone if the site is using
-    timezones.
-    """
     if USE_TZ:
         return datetime.utcnow().replace(tzinfo=utc)
     else:

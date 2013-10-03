@@ -66,7 +66,11 @@
 	 					resultData = data.result;
 						
 						$.each( data.data, function( i, item ) {
-							resultData += "<br>" + item.username;
+							for (property in item) 
+							{
+								resultData += property + ': ' + item[property]+'; ';
+						    }
+							resultData += "//////////////";							
 					    });
 						
 						
@@ -135,7 +139,7 @@
 	{{ head_title }}
 	{{ page_title }}
 	
-	<form id="registform" name="form" method="post">
+	<form id="registform" name="form" method="post">{% csrf_token %}
 		<label>queryId</label>
 		<input id="queryId" type="queryId" name="queryId" length="60" value="{{ queryId }}" required />
 		
