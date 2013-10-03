@@ -23,6 +23,10 @@ class QueryService(object):
         return self
     
     def executeQuery(self, queryId, dict, resultFlag):
+        resultData = {}
+        resultData['query_id'] = ''
+        resultData['query_text'] = ''
+        
         conn = engine.connect()
         queryInfo = self.manager.getQueryInfo(queryId)
         
@@ -31,15 +35,19 @@ class QueryService(object):
         try:
             try:
                 executeQuery = queryInfo["query"]
+                resultData['query_id'] = executeQuery
             except:
                 executeQuery = queryId
+                resultData['query_text'] = executeQuery
             
             if not dict:
                 result = conn.execute(executeQuery)
             else:
                 paramInfo = self.manager.getParam(queryInfo, dict);
                 result = conn.execute(executeQuery, paramInfo)
+            resultData['status'] = 'success'
         except:
+            resultData['status'] = 'fail'
             raise
         finally:
             conn.close()
@@ -57,6 +65,7 @@ class QueryService(object):
                 
                 resultList.append(data)
             
-            print(resultList)
-            
-            return resultList
+            resultData['result'] = resultList
+            return resultData
+        
+        return resultData

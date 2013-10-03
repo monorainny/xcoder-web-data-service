@@ -47,9 +47,12 @@ def executeQuery(request):
     
     startTime = get_current_time()
     
+    resultData = {}
+    
     try:
         queryService = QueryService()
-        result = queryService.executeQuery(queryId, dataSet, True)
+        resultData = queryService.executeQuery(queryId, dataSet, True)
+        result = resultData['result']
         
         data["result"] = "true"
         data["data"] = result
@@ -59,7 +62,7 @@ def executeQuery(request):
     
     finishTime = get_current_time()
     
-    insertQueryLog('admin', queryId, '', startTime, finishTime)
+    insertQueryLog('admin', resultData['query_id'], resultData['query_text'], startTime, finishTime)
     
     return HttpResponse(simplejson.dumps(data), mimetype='application/json')
 
@@ -84,9 +87,11 @@ def updateQuery(request):
     
     startTime = get_current_time()
     
+    resultData = {}
+    
     try:
         queryService = QueryService()
-        queryService.executeQuery(queryId, dataSet, False)
+        resultData = queryService.executeQuery(queryId, dataSet, False)
         
         data["result"] = "true"
     except:
@@ -94,7 +99,7 @@ def updateQuery(request):
     
     finishTime = get_current_time()
     
-    insertQueryLog('admin', queryId, '', startTime, finishTime)
+    insertQueryLog('admin', resultData['query_id'], resultData['query_text'], startTime, finishTime)
     
     return HttpResponse(simplejson.dumps(data), mimetype='application/json')
 
