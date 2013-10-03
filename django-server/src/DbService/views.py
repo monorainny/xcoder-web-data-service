@@ -47,7 +47,7 @@ def executeQuery(request):
     
     try:
         queryService = QueryService()
-        result = queryService.executeQuery(queryId, dataSet)
+        result = queryService.executeQuery(queryId, dataSet, True)
         
         data["result"] = "true"
         data["data"] = result
@@ -82,7 +82,7 @@ def updateQuery(request):
     
     try:
         queryService = QueryService()
-        queryService.executeQuery(queryId, dataSet)
+        queryService.executeQuery(queryId, dataSet, False)
         
         data["result"] = "true"
     except Exception, e:

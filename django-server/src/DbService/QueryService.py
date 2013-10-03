@@ -22,29 +22,7 @@ class QueryService(object):
     def __call__(self):
         return self
     
-    def executeUpdate(self, queryId, dict):
-        conn = engine.connect()
-        queryInfo = self.manager.getQueryInfo(queryId)
-        
-        try:
-            if not dict:
-                executeQuery = queryInfo["query"];
-                conn.execute(executeQuery)
-            else:
-                paramInfo = self.manager.getParam(queryInfo, dict);
-                conn.execute(queryInfo["query"], paramInfo)
-        except exc.DBAPIError, e:
-            if e.connection_invalidated:
-                print "Connection was invalidated!"
-            else:
-                raise exc.DisconnectionError()
-        except Exception, e:
-            print type(e)
-            
-        print("query update success : " + queryId)
-        conn.close()
-        
-    def executeQuery(self, queryId, dict):
+    def executeQuery(self, queryId, dict, resultFlag):
         conn = engine.connect()
         queryInfo = self.manager.getQueryInfo(queryId)
         
@@ -60,20 +38,23 @@ class QueryService(object):
                 result = conn.execute(executeQuery, paramInfo)
         except Exception, e:
             print e
-        
-        resultList = []
-        
-        for raw in result:
-            data = {}
-            
-            for column, value in raw.items():
-                data[column] = value
-            
-            resultList.append(data)
+            raise
+        finally:
+            conn.close()
         
         print("query exeute success : " + queryId)
-        print(resultList)
         
-        conn.close()
-        
-        return resultList
+        if resultFlag and result is not null:   
+            resultList = []
+            
+            for raw in result:
+                data = {}
+                
+                for column, value in raw.items():
+                    data[column] = value
+                
+                resultList.append(data)
+            
+            print(resultList)
+            
+            return resultList

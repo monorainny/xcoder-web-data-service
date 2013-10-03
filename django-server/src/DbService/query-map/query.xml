@@ -10,7 +10,7 @@
    	</query>
    	<query id="InsertUser" description="Insert User Table">
    	    <sql>
-	   	    INSERT INTO users (username, password) VALUES (?, ?)
+	   	    INSERT INTO users (username, password) VALUES (%s, %s)
         </sql>
         <parameter>
             <param id="username" description=""/>

@@ -17,12 +17,13 @@
 				jQuery("#list2").jqGrid({
 					url:'/data_load',
 					datatype: "json",
-					colNames:['User', 'Query', 'Start Date', 'End Date'],
+					colNames:['id', 'User', 'Query', 'Start Date', 'End Date'],
 					colModel:[
-						{name:'user',index:'user', width:55, align:"right"},
-						{name:'query_id',index:'query_id', width:90},
-						{name:'getQueryStarDtm',index:'getQueryStarDtm', width:100},
-						{name:'getQueryEndDtm',index:'getQueryEndDtm', width:110}
+						{name:'id',index:'id', width:40, align:"right"},
+						{name:'user',index:'user', width:80, align:"right"},
+						{name:'query_id',index:'query_id', width:200},
+						{name:'query_start_dtm',index:'query_start_dtm', width:150},
+						{name:'query_end_dtm',index:'query_end_dtm', width:150}
 					],
 					rowNum:10,
 					rowList:[10,20,30],
