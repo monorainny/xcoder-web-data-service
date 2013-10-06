@@ -11,6 +11,7 @@ from django.utils import simplejson
 
 from LogService.models import TbCmQueryLog, TbCmUserAuth
 from DbService.QueryService import *
+from django.db.models.aggregates import Count
 
 def index(request):
     template = get_template('default.html')
@@ -69,7 +70,7 @@ def data_load(request, data_type):
     resultData = {}
     
     resultData['page'] = page + 1
-    resultData['records'] = query_log.count()
+    resultData['records'] = len(query_log)
     resultData['rows'] = data
     resultData['total'] = TbCmQueryLog.objects.all().count() / rows + 1
     
@@ -77,15 +78,20 @@ def data_load(request, data_type):
 
 def getDataToDataType(data_type, search, rows, page, sidx, sord):
     try:
-        if data_type == 'history':
+        if data_type == 'schema' or data_type == 'account' or data_type == 'usage':
+            queryResult = dbQueryExecute(data_type)
+            query_log = queryResult['data']
+        elif data_type == 'history':
             if search != 'false':
                 query_log = TbCmQueryLog.objects.order_by(sidx).filter(query_id__icontains=search)[page * rows:page * rows + rows]
             else:
                 query_log = TbCmQueryLog.objects.order_by(sidx).all()[page * rows:page * rows + rows]
         elif data_type == 'statistic':
-            pass
-        elif data_type == 'account':
-            query_log = dbQueryExecute(data_type)
+            query_log = TbCmQueryLog.objects.values('query_id').annotate(Count('query_id')).order_by('-query_id__count')[0:10]
+        elif data_type == 'connect':
+            query_log = TbCmUserAuth.objects.all()
+        elif data_type == 'admin':
+            query_log = TbCmUserAuth.objects.all()
     except:
         return HttpResponse('검색 결과가 없습니다.')
     
@@ -98,7 +104,26 @@ def getResultData(data_type, query_log):
         cell = []
         row_data = {}
         
-        if data_type == 'history':
+        if data_type == 'schema':
+            cell.append(entry['TABLE_SCHEMA'])
+            cell.append(entry['TABLE_NAME'])
+            cell.append(entry['TABLE_ROWS'])
+            cell.append(entry['DATA_LENGTH'])
+            cell.append(entry['INDEX_LENGTH'])
+            cell.append(entry['CREATE_TIME'].strftime("%Y-%m-%d %H:%M:%S"))
+            
+            row_data['id'] = entry['TABLE_SCHEMA']
+        elif data_type == 'account':
+            cell.append(entry['Host'])
+            cell.append(entry['User'])
+            
+            row_data['id'] = entry['Host']
+        elif data_type == 'usage':
+            cell.append(entry['database_name'])
+            cell.append(str(entry['size']))
+            
+            row_data['id'] = entry['database_name']
+        elif data_type == 'history':
             cell.append(int(entry.id))
             cell.append(entry.user)
             cell.append(entry.query_id)
@@ -107,9 +132,24 @@ def getResultData(data_type, query_log):
             
             row_data['id'] = int(entry.id)
         elif data_type == 'statistic':
-            pass
-        elif data_type == 'account':
-            pass
+            cell.append(entry['query_id'])
+            cell.append(entry['query_id__count'])
+            
+            row_data['id'] = entry['query_id']
+        elif data_type == 'connect':
+            cell.append(int(entry.id))
+            cell.append(entry.user_id)
+            cell.append(entry.user_name)
+            cell.append(entry.last_login_dtm.strftime("%Y-%m-%d %H:%M:%S"))
+            
+            row_data['id'] = int(entry.id)
+        elif data_type == 'admin':
+            cell.append(int(entry.id))
+            cell.append(entry.user_id)
+            cell.append(entry.user_name)
+            cell.append(entry.regist_dtm.strftime("%Y-%m-%d %H:%M:%S"))
+            
+            row_data['id'] = int(entry.id)
         
         row_data['cell'] = cell
         
@@ -121,10 +161,12 @@ def dbQueryExecute(data_type):
     query = ""
     dataSet = []
     
-    if data_type == 'account':
-        query = "select * from mysql.user"
-    elif data_type == '':
-        pass
+    if data_type == 'schema':
+        query = "SELECT TABLE_SCHEMA, TABLE_NAME, TABLE_ROWS, DATA_LENGTH, INDEX_LENGTH, CREATE_TIME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = SCHEMA()"
+    elif data_type == 'account':
+        query = "select Host, User from mysql.user"
+    elif data_type == 'usage':
+        query = "SELECT table_schema 'database_name', SUM(data_length + index_length) / 1024 / 1024 'size' FROM information_schema.TABLES GROUP BY table_schema"
     
     result = {}
     
