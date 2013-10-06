@@ -123,7 +123,7 @@ def insertQueryLog(user_id, query_id, query_text, startTime, finishTime):
     
     cmQueryLog.user = user_id
     cmQueryLog.query_id = query_id
-    cmQueryLog.query_text = ''
+    cmQueryLog.query_text = query_text
     cmQueryLog.query_start_dtm = startTime
     cmQueryLog.query_end_dtm = finishTime
     

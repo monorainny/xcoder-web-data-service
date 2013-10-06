@@ -19,7 +19,7 @@
 					jQuery("#list2").jqGrid({
 						url:'/data_load/{{ data_type }}',
 						datatype: "json",
-						colNames:['TABLE_SCHEMA', 'TABLE_NAME', 'TABLE_ROWS', 'DATA_LENGTH', 'INDEX_LENGTH', 'CREATE_TIME'],
+						colNames:['테이블스키마', '테이블명', '테이블행수', '데이타길이', '인덱스길이', '생성일'],
 						colModel:[
 							{name:'테이블스키마',index:'TABLE_SCHEMA', width:140, align:"left"},
 							{name:'테이블명',index:'TABLE_NAME', width:140, align:"left"},
@@ -43,7 +43,7 @@
 					jQuery("#list2").jqGrid({
 						url:'/data_load/{{ data_type }}',
 						datatype: "json",
-						colNames:['Host', 'User'],
+						colNames:['접속구분', '사용자'],
 						colModel:[
 							{name:'접속구분',index:'Host', width:240, align:"center"},
 							{name:'사용자',index:'User', width:150, align:"center"}
@@ -63,7 +63,7 @@
 					jQuery("#list2").jqGrid({
 						url:'/data_load/{{ data_type }}',
 						datatype: "json",
-						colNames:['database_name', 'size(MB)'],
+						colNames:['데이타베이스명', '크기(MB)'],
 						colModel:[
 							{name:'데이타베이스명',index:'database_name', width:240, align:"center"},
 							{name:'크기(MB)',index:'size', width:150, align:"right"}
@@ -83,7 +83,7 @@
 					jQuery("#list2").jqGrid({
 						url:'/data_load/{{ data_type }}',
 						datatype: "json",
-						colNames:['id', 'User', 'Query', 'Start Date', 'End Date'],
+						colNames:['id', '사용자', '쿼리', '쿼리실행시작시각', '쿼리실행종료시각'],
 						colModel:[
 							{name:'id',index:'id', width:40, align:"right"},
 							{name:'사용자',index:'user', width:80, align:"center"},
@@ -106,7 +106,7 @@
 					jQuery("#list2").jqGrid({
 						url:'/data_load/{{ data_type }}',
 						datatype: "json",
-						colNames:['query id', 'count'],
+						colNames:['쿼리내용', '횟수'],
 						colModel:[
 							{name:'쿼리내용',index:'query_id', width:240, align:"left"},
 							{name:'횟수',index:'count', width:150, align:"right"}
@@ -126,7 +126,7 @@
 					jQuery("#list2").jqGrid({
 						url:'/data_load/{{ data_type }}',
 						datatype: "json",
-						colNames:['id', 'user_id', 'user_name', 'last login date'],
+						colNames:['id', '사용자', '사용자명', '최종접속일'],
 						colModel:[
 							{name:'id',index:'id', width:40, align:"center"},
 							{name:'사용자',index:'user_id', width:240, align:"center"},
@@ -148,7 +148,7 @@
 					jQuery("#list2").jqGrid({
 						url:'/data_load/{{ data_type }}',
 						datatype: "json",
-						colNames:['id', 'user_id', 'user_name', 'regist date'],
+						colNames:['id', '사용자', '사용자명', '등록일'],
 						colModel:[
 							{name:'id',index:'id', width:40, align:"center"},
 							{name:'사용자',index:'user_id', width:240, align:"left"},

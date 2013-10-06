@@ -124,9 +124,14 @@ def getResultData(data_type, query_log):
             
             row_data['id'] = entry['database_name']
         elif data_type == 'history':
+            query = entry.query_id
+            
+            if query == '':
+                query = entry.query_text[:20]
+            
             cell.append(int(entry.id))
             cell.append(entry.user)
-            cell.append(entry.query_id)
+            cell.append(query)
             cell.append(entry.getQueryStarDtm())
             cell.append(entry.getQueryEndDtm())
             

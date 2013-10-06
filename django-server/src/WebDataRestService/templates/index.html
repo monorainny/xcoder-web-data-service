@@ -14,8 +14,8 @@
 	<script type="text/javascript">
 	    $(document).ready(function() {
 			$('#query').click(function (e) {
-				var queryId= $('input[name=queryId]');
-	    		var queryData= $('input[name=queryData]');
+				var queryId= $('textarea[name=queryId]');
+	    		var queryData= $('textarea[name=queryData]');
 	    		
 	    		if(queryId.val() == "") {
 					alert("Error: queryId cannot be blank!");
@@ -25,7 +25,7 @@
 	    		
 	    		var data = '&queryId='+queryId.val();
 	    		data += '&queryData='+queryData.val();
-	    		
+	     		
 	    		$.ajaxSetup({ 
 					beforeSend: function(xhr, settings) {
 	    			function getCookie(name) {
@@ -80,8 +80,8 @@
 	    	});
 	     	
 	    	$('#update').click(function (e) {
-	    		var queryId= $('input[name=queryId]');
-	    		var queryData= $('input[name=queryData]');
+	    		var queryId= $('textarea[name=queryId]');
+	    		var queryData= $('textarea[name=queryData]');
 	    		
 	    		if(queryId.val() == "") {
 					alert("Error: queryId cannot be blank!");
@@ -91,7 +91,7 @@
 	    		
 	    		var data = '&queryId='+queryId.val();
 	    		data += '&queryData='+queryData.val();
-	     		
+	    		
 	    		$.ajaxSetup({ 
 					beforeSend: function(xhr, settings) {
 	    			function getCookie(name) {
