@@ -21,12 +21,12 @@
 						datatype: "json",
 						colNames:['TABLE_SCHEMA', 'TABLE_NAME', 'TABLE_ROWS', 'DATA_LENGTH', 'INDEX_LENGTH', 'CREATE_TIME'],
 						colModel:[
-							{name:'TABLE_SCHEMA',index:'TABLE_SCHEMA', width:140, align:"right"},
-							{name:'TABLE_NAME',index:'TABLE_NAME', width:140, align:"right"},
-							{name:'TABLE_ROWS',index:'TABLE_ROWS', width:80},
-							{name:'DATA_LENGTH',index:'DATA_LENGTH', width:80},
-							{name:'INDEX_LENGTH',index:'INDEX_LENGTH', width:80},
-							{name:'CREATE_TIME',index:'CREATE_TIME', width:150}
+							{name:'테이블스키마',index:'TABLE_SCHEMA', width:140, align:"left"},
+							{name:'테이블명',index:'TABLE_NAME', width:140, align:"left"},
+							{name:'테이블행수',index:'TABLE_ROWS', width:80, align:"right"},
+							{name:'데이타길이',index:'DATA_LENGTH', width:80, align:"right"},
+							{name:'인덱스길이',index:'INDEX_LENGTH', width:80, align:"right"},
+							{name:'생성일',index:'CREATE_TIME', width:150, align:"center"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],
@@ -34,7 +34,7 @@
 						sortname: 'TABLE_SCHEMA',
 						viewrecords: true,
 						sortorder: "desc",
-						caption:"JSON Example"
+						caption:"테이블 목록"
 					});
 					jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 				}
@@ -45,8 +45,8 @@
 						datatype: "json",
 						colNames:['Host', 'User'],
 						colModel:[
-							{name:'Host',index:'Host', width:240, align:"right"},
-							{name:'User',index:'User', width:150}
+							{name:'접속구분',index:'Host', width:240, align:"center"},
+							{name:'사용자',index:'User', width:150, align:"center"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],
@@ -54,7 +54,7 @@
 						sortname: 'User',
 						viewrecords: true,
 						sortorder: "desc",
-						caption:"JSON Example"
+						caption:"DB 사용자 목록"
 					});
 					jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 				}
@@ -65,8 +65,8 @@
 						datatype: "json",
 						colNames:['database_name', 'size(MB)'],
 						colModel:[
-							{name:'database_name',index:'database_name', width:240, align:"right"},
-							{name:'size',index:'size', width:150}
+							{name:'데이타베이스명',index:'database_name', width:240, align:"center"},
+							{name:'크기(MB)',index:'size', width:150, align:"right"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],
@@ -74,7 +74,7 @@
 						sortname: 'size',
 						viewrecords: true,
 						sortorder: "desc",
-						caption:"JSON Example"
+						caption:"사용공간 목록"
 					});
 					jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 				}
@@ -86,10 +86,10 @@
 						colNames:['id', 'User', 'Query', 'Start Date', 'End Date'],
 						colModel:[
 							{name:'id',index:'id', width:40, align:"right"},
-							{name:'user',index:'user', width:80, align:"right"},
-							{name:'query_id',index:'query_id', width:200},
-							{name:'query_start_dtm',index:'query_start_dtm', width:150},
-							{name:'query_end_dtm',index:'query_end_dtm', width:150}
+							{name:'사용자',index:'user', width:80, align:"center"},
+							{name:'쿼리',index:'query_id', width:200},
+							{name:'쿼리실행시작시각',index:'query_start_dtm', width:150, align:"center"},
+							{name:'쿼리실행종료시각',index:'query_end_dtm', width:150, align:"center"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],
@@ -97,7 +97,7 @@
 						sortname: 'id',
 						viewrecords: true,
 						sortorder: "desc",
-						caption:"JSON Example"
+						caption:"쿼리 실행 목록"
 					});
 					jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 				}
@@ -108,8 +108,8 @@
 						datatype: "json",
 						colNames:['query id', 'count'],
 						colModel:[
-							{name:'query_id',index:'query_id', width:240, align:"right"},
-							{name:'count',index:'count', width:150}
+							{name:'쿼리내용',index:'query_id', width:240, align:"left"},
+							{name:'횟수',index:'count', width:150, align:"right"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],
@@ -117,7 +117,7 @@
 						sortname: 'query_id',
 						viewrecords: true,
 						sortorder: "desc",
-						caption:"JSON Example"
+						caption:"쿼리 실행 빈도 목록"
 					});
 					jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 				}
@@ -128,10 +128,10 @@
 						datatype: "json",
 						colNames:['id', 'user_id', 'user_name', 'last login date'],
 						colModel:[
-							{name:'id',index:'id', width:40, align:"right"},
-							{name:'user_id',index:'user_id', width:240, align:"right"},
-							{name:'user_name',index:'user_name', width:240, align:"right"},
-							{name:'last_login',index:'last_login', width:150}
+							{name:'id',index:'id', width:40, align:"center"},
+							{name:'사용자',index:'user_id', width:240, align:"center"},
+							{name:'사용자명',index:'user_name', width:240, align:"left"},
+							{name:'최종접속일',index:'last_login', width:150,align:"center"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],
@@ -139,7 +139,7 @@
 						sortname: 'query_id',
 						viewrecords: true,
 						sortorder: "desc",
-						caption:"JSON Example"
+						caption:"접속정보 목록"
 					});
 					jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 				}
@@ -150,10 +150,10 @@
 						datatype: "json",
 						colNames:['id', 'user_id', 'user_name', 'regist date'],
 						colModel:[
-							{name:'id',index:'id', width:40, align:"right"},
-							{name:'user_id',index:'user_id', width:240, align:"right"},
-							{name:'user_name',index:'user_name', width:240, align:"right"},
-							{name:'regist_date',index:'regist_date', width:150}
+							{name:'id',index:'id', width:40, align:"center"},
+							{name:'사용자',index:'user_id', width:240, align:"left"},
+							{name:'사용자명',index:'user_name', width:240, align:"left"},
+							{name:'등록일',index:'regist_date', width:150, align:"center"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],
@@ -161,7 +161,7 @@
 						sortname: 'query_id',
 						viewrecords: true,
 						sortorder: "desc",
-						caption:"JSON Example"
+						caption:"USER정보 목록"
 					});
 					jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 				}
