@@ -21,12 +21,12 @@
 						datatype: "json",
 						colNames:['TABLE_SCHEMA', 'TABLE_NAME', 'TABLE_ROWS', 'DATA_LENGTH', 'INDEX_LENGTH', 'CREATE_TIME'],
 						colModel:[
-							{name:'Å×ÀÌºí½ºÅ°¸¶',index:'TABLE_SCHEMA', width:140, align:"left"},
-							{name:'Å×ÀÌºí¸í',index:'TABLE_NAME', width:140, align:"left"},
-							{name:'Å×ÀÌºíÇà¼ö',index:'TABLE_ROWS', width:80, align:"right"},
-							{name:'µ¥ÀÌÅ¸±æÀÌ',index:'DATA_LENGTH', width:80, align:"right"},
-							{name:'ÀÎµ¦½º±æÀÌ',index:'INDEX_LENGTH', width:80, align:"right"},
-							{name:'»ı¼ºÀÏ',index:'CREATE_TIME', width:150, align:"center"}
+							{name:'í…Œì´ë¸”ìŠ¤í‚¤ë§ˆ',index:'TABLE_SCHEMA', width:140, align:"left"},
+							{name:'í…Œì´ë¸”ëª…',index:'TABLE_NAME', width:140, align:"left"},
+							{name:'í…Œì´ë¸”í–‰ìˆ˜',index:'TABLE_ROWS', width:80, align:"right"},
+							{name:'ë°ì´íƒ€ê¸¸ì´',index:'DATA_LENGTH', width:80, align:"right"},
+							{name:'ì¸ë±ìŠ¤ê¸¸ì´',index:'INDEX_LENGTH', width:80, align:"right"},
+							{name:'ìƒì„±ì¼',index:'CREATE_TIME', width:150, align:"center"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],
@@ -34,7 +34,7 @@
 						sortname: 'TABLE_SCHEMA',
 						viewrecords: true,
 						sortorder: "desc",
-						caption:"Å×ÀÌºí ¸ñ·Ï"
+						caption:"í…Œì´ë¸” ëª©ë¡"
 					});
 					jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 				}
@@ -45,8 +45,8 @@
 						datatype: "json",
 						colNames:['Host', 'User'],
 						colModel:[
-							{name:'Á¢¼Ó±¸ºĞ',index:'Host', width:240, align:"center"},
-							{name:'»ç¿ëÀÚ',index:'User', width:150, align:"center"}
+							{name:'ì ‘ì†êµ¬ë¶„',index:'Host', width:240, align:"center"},
+							{name:'ì‚¬ìš©ì',index:'User', width:150, align:"center"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],
@@ -54,7 +54,7 @@
 						sortname: 'User',
 						viewrecords: true,
 						sortorder: "desc",
-						caption:"DB »ç¿ëÀÚ ¸ñ·Ï"
+						caption:"DB ì‚¬ìš©ì ëª©ë¡"
 					});
 					jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 				}
@@ -65,8 +65,8 @@
 						datatype: "json",
 						colNames:['database_name', 'size(MB)'],
 						colModel:[
-							{name:'µ¥ÀÌÅ¸º£ÀÌ½º¸í',index:'database_name', width:240, align:"center"},
-							{name:'Å©±â(MB)',index:'size', width:150, align:"right"}
+							{name:'ë°ì´íƒ€ë² ì´ìŠ¤ëª…',index:'database_name', width:240, align:"center"},
+							{name:'í¬ê¸°(MB)',index:'size', width:150, align:"right"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],
@@ -74,7 +74,7 @@
 						sortname: 'size',
 						viewrecords: true,
 						sortorder: "desc",
-						caption:"»ç¿ë°ø°£ ¸ñ·Ï"
+						caption:"ì‚¬ìš©ê³µê°„ ëª©ë¡"
 					});
 					jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 				}
@@ -86,10 +86,10 @@
 						colNames:['id', 'User', 'Query', 'Start Date', 'End Date'],
 						colModel:[
 							{name:'id',index:'id', width:40, align:"right"},
-							{name:'»ç¿ëÀÚ',index:'user', width:80, align:"center"},
-							{name:'Äõ¸®',index:'query_id', width:200},
-							{name:'Äõ¸®½ÇÇà½ÃÀÛ½Ã°¢',index:'query_start_dtm', width:150, align:"center"},
-							{name:'Äõ¸®½ÇÇàÁ¾·á½Ã°¢',index:'query_end_dtm', width:150, align:"center"}
+							{name:'ì‚¬ìš©ì',index:'user', width:80, align:"center"},
+							{name:'ì¿¼ë¦¬',index:'query_id', width:200},
+							{name:'ì¿¼ë¦¬ì‹¤í–‰ì‹œì‘ì‹œê°',index:'query_start_dtm', width:150, align:"center"},
+							{name:'ì¿¼ë¦¬ì‹¤í–‰ì¢…ë£Œì‹œê°',index:'query_end_dtm', width:150, align:"center"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],
@@ -97,7 +97,7 @@
 						sortname: 'id',
 						viewrecords: true,
 						sortorder: "desc",
-						caption:"Äõ¸® ½ÇÇà ¸ñ·Ï"
+						caption:"ì¿¼ë¦¬ ì‹¤í–‰ ëª©ë¡"
 					});
 					jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 				}
@@ -108,8 +108,8 @@
 						datatype: "json",
 						colNames:['query id', 'count'],
 						colModel:[
-							{name:'Äõ¸®³»¿ë',index:'query_id', width:240, align:"left"},
-							{name:'È½¼ö',index:'count', width:150, align:"right"}
+							{name:'ì¿¼ë¦¬ë‚´ìš©',index:'query_id', width:240, align:"left"},
+							{name:'íšŸìˆ˜',index:'count', width:150, align:"right"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],
@@ -117,7 +117,7 @@
 						sortname: 'query_id',
 						viewrecords: true,
 						sortorder: "desc",
-						caption:"Äõ¸® ½ÇÇà ºóµµ ¸ñ·Ï"
+						caption:"ì¿¼ë¦¬ ì‹¤í–‰ ë¹ˆë„ ëª©ë¡"
 					});
 					jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 				}
@@ -129,9 +129,9 @@
 						colNames:['id', 'user_id', 'user_name', 'last login date'],
 						colModel:[
 							{name:'id',index:'id', width:40, align:"center"},
-							{name:'»ç¿ëÀÚ',index:'user_id', width:240, align:"center"},
-							{name:'»ç¿ëÀÚ¸í',index:'user_name', width:240, align:"left"},
-							{name:'ÃÖÁ¾Á¢¼ÓÀÏ',index:'last_login', width:150,align:"center"}
+							{name:'ì‚¬ìš©ì',index:'user_id', width:240, align:"center"},
+							{name:'ì‚¬ìš©ìëª…',index:'user_name', width:240, align:"left"},
+							{name:'ìµœì¢…ì ‘ì†ì¼',index:'last_login', width:150,align:"center"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],
@@ -139,7 +139,7 @@
 						sortname: 'query_id',
 						viewrecords: true,
 						sortorder: "desc",
-						caption:"Á¢¼ÓÁ¤º¸ ¸ñ·Ï"
+						caption:"ì ‘ì†ì •ë³´ ëª©ë¡"
 					});
 					jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 				}
@@ -151,9 +151,9 @@
 						colNames:['id', 'user_id', 'user_name', 'regist date'],
 						colModel:[
 							{name:'id',index:'id', width:40, align:"center"},
-							{name:'»ç¿ëÀÚ',index:'user_id', width:240, align:"left"},
-							{name:'»ç¿ëÀÚ¸í',index:'user_name', width:240, align:"left"},
-							{name:'µî·ÏÀÏ',index:'regist_date', width:150, align:"center"}
+							{name:'ì‚¬ìš©ì',index:'user_id', width:240, align:"left"},
+							{name:'ì‚¬ìš©ìëª…',index:'user_name', width:240, align:"left"},
+							{name:'ë“±ë¡ì¼',index:'regist_date', width:150, align:"center"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],
@@ -161,7 +161,7 @@
 						sortname: 'query_id',
 						viewrecords: true,
 						sortorder: "desc",
-						caption:"USERÁ¤º¸ ¸ñ·Ï"
+						caption:"USERì •ë³´ ëª©ë¡"
 					});
 					jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 				}
