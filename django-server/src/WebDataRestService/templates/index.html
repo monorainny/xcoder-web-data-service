@@ -136,18 +136,23 @@
 </head>
 <body>
 
-	{{ head_title }}
-	{{ page_title }}
-	
 	<form id="registform" name="form" method="post">{% csrf_token %}
-		<label>queryId</label>
-		<input id="queryId" type="queryId" name="queryId" length="60" value="{{ queryId }}" required />
+		수행 쿼리
+		<div>
+			<TextArea id="queryId" type="queryId" name="queryId" cols="60" rows="10" value="{{ queryId }}" required>Query ID or Raw Query</TextArea>
+		</div>
 		
-		<label>queryData</label>
-		<input id="queryData" type="queryData" name="queryData" length="60" value="{{ queryData }}" />
+		</p>
 		
-		<input class="button" type="button" id="query" value="ExecuteQuery" />
-		<input class="button" type="button" id="update" value="ExecuteUpdate" />
+		쿼리 파라미터
+		<div horizonAlign="top">
+			<TextArea id="queryData" type="queryData" name="queryData" cols="60" rows="10" value="{{ queryData }}">param1='value1'|param2='value2'</TextArea>
+		</div>
+		
+		<div style="width : 440px; padding : 5px;" align="right">
+			<input class="button" type="button" id="query" value="ExecuteQuery" />
+			<input class="button" type="button" id="update" value="ExecuteUpdate" />
+		</div>
 		
 		<div class="spacer"></div>
 	</form>
