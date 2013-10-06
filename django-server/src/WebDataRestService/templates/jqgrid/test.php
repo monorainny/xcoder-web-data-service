@@ -15,7 +15,7 @@
 	<script type="text/javascript">
 		jQuery(document).ready(function(){
 				jQuery("#list2").jqGrid({
-					url:'/data_load',
+					url:'/data_load/{{ data_type }}',
 					datatype: "json",
 					colNames:['id', 'User', 'Query', 'Start Date', 'End Date'],
 					colModel:[

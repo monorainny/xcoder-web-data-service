@@ -21,8 +21,9 @@ urlpatterns = patterns('',
     url(r'^left/', 'LogService.views.left', name='left'),
     url(r'^main/', 'LogService.views.main', name='main'),
     
-    url(r'^jqgrid_main/', 'LogService.views.jqgrid_main', name='jqgrid_main'),
-    url(r'^data_load/', 'LogService.views.data_load', name='data_load'),
+    url(r'^jqgrid_main/(\w+)/', 'LogService.views.jqgrid_main', name='jqgrid_main'),
+    
+    url(r'^data_load/(\w+)/', 'LogService.views.data_load', name='data_load'),
     
     url(r'^DbQuery/', 'DbService.views.index', name='index'),
     

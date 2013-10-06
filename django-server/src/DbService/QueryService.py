@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import sqlalchemy.pool as pool
 from sqlalchemy import *
 from QueryManager import *

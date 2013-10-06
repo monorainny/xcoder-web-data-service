@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
-from django.template.loader import get_template
-from django.template.context import Context, RequestContext
-from django.http.response import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response
-from django.utils import simplejson
-from LogService.models import TbCmQueryLog, TbCmUserAuth
-from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
-from django.contrib.auth import authenticate
-from django.contrib.auth.views import login, logout
-from django.template.response import TemplateResponse
+from django.contrib.auth.views import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http.response import HttpResponse
+from django.shortcuts import render_to_response
+from django.template.context import Context, RequestContext
+from django.template.loader import get_template
+from django.template.response import TemplateResponse
+from django.utils import simplejson
 
-# Create your views here.
+from LogService.models import TbCmQueryLog, TbCmUserAuth
+from DbService import QueryService
 
 def index(request):
     template = get_template('default.html')
@@ -35,10 +33,17 @@ def main(request):
     return render_to_response('main.html', RequestContext(request, {'user': request.user}));
 
 @login_required(login_url='/accounts/login/')
-def jqgrid_main(request):
-    return render_to_response('jqgrid/test.php', RequestContext(request, {'user': request.user}));
+def jqgrid_main(request, data_type):
+    template = get_template('jqgrid/test.php')
+    variables = RequestContext(request, {
+        'user': request.user,
+        'data_type' : data_type,
+    })
+    
+    output = template.render(variables)
+    return HttpResponse(output)
 
-def data_load(request):
+def data_load(request, data_type):
     if request.method == 'GET':
         search=request.GET['_search']
         nd=request.GET['nd']
@@ -57,13 +62,7 @@ def data_load(request):
     if sord != 'asc':
         sidx = '-' + sidx
     
-    try:
-        if search != 'false':
-            query_log = TbCmQueryLog.objects.order_by(sidx).filter(query_id__icontains=search)[page * rows:page * rows + rows]
-        else:
-            query_log = TbCmQueryLog.objects.order_by(sidx).all()[page * rows:page * rows + rows]
-    except:
-        return HttpResponse('검색 결과가 없습니다.')
+    query_log = getDataToDataType(data_type, search, rows, page, sidx, sord)
     
     data = []
     
@@ -91,6 +90,41 @@ def data_load(request):
     resultData['total'] = TbCmQueryLog.objects.all().count() / rows + 1
     
     return HttpResponse(simplejson.dumps(resultData), mimetype='application/json')
+
+def getDataToDataType(data_type, search, rows, page, sidx, sord):
+    try:
+        if search != 'false':
+            query_log = TbCmQueryLog.objects.order_by(sidx).filter(query_id__icontains=search)[page * rows:page * rows + rows]
+        else:
+            query_log = TbCmQueryLog.objects.order_by(sidx).all()[page * rows:page * rows + rows]
+    except:
+        return HttpResponse('검색 결과가 없습니다.')
+    
+    return query_log
+
+def dbQueryExecute(data_type):
+    query = ""
+    dataSet = []
+    
+    if data_type == 'account':
+        query = "select * from mysql.user"
+    elif data_type == '':
+        pass
+    
+    result = {}
+    
+    try:
+        queryService = QueryService()
+        resultData = queryService.executeQuery(query, dataSet, True)
+        result = resultData['result']
+        
+        result["result"] = "true"
+        result["data"] = result
+    except Exception, e:
+        result["result"] = "false"
+        print e
+    
+    pass
 
 def main_refresh(request):
     return TemplateResponse(request, 'page_redirect.html', {'redirect_url':'/'})
