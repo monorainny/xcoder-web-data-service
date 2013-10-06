@@ -10,7 +10,7 @@ from django.template.response import TemplateResponse
 from django.utils import simplejson
 
 from LogService.models import TbCmQueryLog, TbCmUserAuth
-from DbService import QueryService
+from DbService.QueryService import *
 
 def index(request):
     template = get_template('default.html')
@@ -64,23 +64,7 @@ def data_load(request, data_type):
     
     query_log = getDataToDataType(data_type, search, rows, page, sidx, sord)
     
-    data = []
-    
-    for entry in query_log:
-        cell = []
-        
-        cell.append(int(entry.id))
-        cell.append(entry.user)
-        cell.append(entry.query_id)
-        cell.append(entry.getQueryStarDtm())
-        cell.append(entry.getQueryEndDtm())
-        
-        row_data = {}
-        
-        row_data['id'] = int(entry.id)
-        row_data['cell'] = cell
-        
-        data.append(row_data)
+    data = getResultData(data_type, query_log)
     
     resultData = {}
     
@@ -93,14 +77,45 @@ def data_load(request, data_type):
 
 def getDataToDataType(data_type, search, rows, page, sidx, sord):
     try:
-        if search != 'false':
-            query_log = TbCmQueryLog.objects.order_by(sidx).filter(query_id__icontains=search)[page * rows:page * rows + rows]
-        else:
-            query_log = TbCmQueryLog.objects.order_by(sidx).all()[page * rows:page * rows + rows]
+        if data_type == 'history':
+            if search != 'false':
+                query_log = TbCmQueryLog.objects.order_by(sidx).filter(query_id__icontains=search)[page * rows:page * rows + rows]
+            else:
+                query_log = TbCmQueryLog.objects.order_by(sidx).all()[page * rows:page * rows + rows]
+        elif data_type == 'statistic':
+            pass
+        elif data_type == 'account':
+            query_log = dbQueryExecute(data_type)
     except:
         return HttpResponse('검색 결과가 없습니다.')
     
     return query_log
+
+def getResultData(data_type, query_log):
+    data = []
+    
+    for entry in query_log:
+        cell = []
+        row_data = {}
+        
+        if data_type == 'history':
+            cell.append(int(entry.id))
+            cell.append(entry.user)
+            cell.append(entry.query_id)
+            cell.append(entry.getQueryStarDtm())
+            cell.append(entry.getQueryEndDtm())
+            
+            row_data['id'] = int(entry.id)
+        elif data_type == 'statistic':
+            pass
+        elif data_type == 'account':
+            pass
+        
+        row_data['cell'] = cell
+        
+        data.append(row_data)
+    
+    return data
 
 def dbQueryExecute(data_type):
     query = ""
@@ -116,15 +131,15 @@ def dbQueryExecute(data_type):
     try:
         queryService = QueryService()
         resultData = queryService.executeQuery(query, dataSet, True)
-        result = resultData['result']
+        executeResult = resultData['result']
         
         result["result"] = "true"
-        result["data"] = result
+        result["data"] = executeResult
     except Exception, e:
         result["result"] = "false"
         print e
     
-    pass
+    return result
 
 def main_refresh(request):
     return TemplateResponse(request, 'page_redirect.html', {'redirect_url':'/'})
