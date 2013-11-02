@@ -2,6 +2,7 @@
 import sqlalchemy.pool as pool
 from sqlalchemy import *
 from QueryManager import *
+from sqlalchemy.engine.result import ResultProxy
 
 engine = None
 
@@ -29,7 +30,7 @@ class QueryService(object):
         conn = engine.connect()
         queryInfo = self.manager.getQueryInfo(queryId)
         
-        result = {}
+        queryResult = {}
         
         try:
             try:
@@ -42,10 +43,10 @@ class QueryService(object):
                 resultData['query_text'] = executeQuery
             
             if not dict:
-                result = conn.execute(executeQuery)
+                queryResult = conn.execute(executeQuery)
             else:
                 paramInfo = self.manager.getParam(queryInfo, dict);
-                result = conn.execute(executeQuery, paramInfo)
+                queryResult = conn.execute(executeQuery, paramInfo)
             resultData['status'] = 'success'
         except:
             resultData['status'] = 'fail'
@@ -57,7 +58,14 @@ class QueryService(object):
         
         resultData['result'] = []
         
-        if resultFlag and result is not null and result.returns_rows and result.rowcount > 0:   
+        result = []
+        
+        if type(queryResult) == ResultProxy:
+            result = [r for r in queryResult]
+        else:
+            result = queryResult
+        
+        if resultFlag and result is not null and len(result) > 0:   
             resultList = []
             
             for raw in result:
