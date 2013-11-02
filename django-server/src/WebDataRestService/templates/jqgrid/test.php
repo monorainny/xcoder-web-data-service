@@ -106,10 +106,11 @@
 					jQuery("#list2").jqGrid({
 						url:'/data_load/{{ data_type }}',
 						datatype: "json",
-						colNames:['쿼리내용', '횟수'],
+						colNames:['쿼리내용', '횟수', '평균수행시간'],
 						colModel:[
 							{name:'쿼리내용',index:'query_id', width:240, align:"left"},
-							{name:'횟수',index:'count', width:150, align:"right"}
+							{name:'횟수',index:'execute_count', width:150, align:"right"},
+							{name:'평균수행시간',index:'execute_time', width:150, align:"right"}
 						],
 						rowNum:10,
 						rowList:[10,20,30],

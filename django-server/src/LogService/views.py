@@ -11,7 +11,7 @@ from django.utils import simplejson
 
 from LogService.models import TbCmQueryLog, TbCmUserAuth
 from DbService.QueryService import *
-from django.db.models.aggregates import Count
+from django.db.models.aggregates import Count, Avg
 
 def index(request):
     template = get_template('default.html')
@@ -87,12 +87,12 @@ def getDataToDataType(data_type, search, rows, page, sidx, sord):
             else:
                 query_log = TbCmQueryLog.objects.order_by(sidx).all()[page * rows:page * rows + rows]
         elif data_type == 'statistic':
-            query_log = TbCmQueryLog.objects.values('query_id').annotate(Count('query_id')).order_by('-query_id__count')[0:10]
+            query_log = TbCmQueryLog.objects.values('query_id').annotate(execute_count=Count('query_id'),execute_time=Avg('execute_time')).order_by('-execute_count')[0:10]
         elif data_type == 'connect':
             query_log = TbCmUserAuth.objects.all()
         elif data_type == 'admin':
             query_log = TbCmUserAuth.objects.all()
-    except:
+    except Exception, e:
         return HttpResponse('검색 결과가 없습니다.')
     
     return query_log
@@ -138,7 +138,8 @@ def getResultData(data_type, query_log):
             row_data['id'] = int(entry.id)
         elif data_type == 'statistic':
             cell.append(entry['query_id'])
-            cell.append(entry['query_id__count'])
+            cell.append(entry['execute_count'])
+            cell.append(entry['execute_time'])
             
             row_data['id'] = entry['query_id']
         elif data_type == 'connect':

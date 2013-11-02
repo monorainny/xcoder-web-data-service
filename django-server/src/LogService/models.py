@@ -61,6 +61,7 @@ class TbCmQueryLog(models.Model):
     user = models.CharField(max_length=40,null=True)
     query_id = models.CharField(max_length=20,null=True)
     query_text = models.TextField()
+    execute_time = models.IntegerField()
     query_start_dtm = models.DateTimeField()
     query_end_dtm = models.DateTimeField()
     

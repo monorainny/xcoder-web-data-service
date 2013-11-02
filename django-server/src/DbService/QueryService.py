@@ -57,7 +57,7 @@ class QueryService(object):
         
         resultData['result'] = []
         
-        if resultFlag and result is not null and result.rowcount != 0:   
+        if resultFlag and result is not null and result.returns_rows and result.rowcount > 0:   
             resultList = []
             
             for raw in result:

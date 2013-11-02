@@ -3,7 +3,7 @@
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import get_template
-from django.utils import simplejson
+from django.utils import simplejson, timezone
 from django.utils.timezone import utc
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
@@ -12,6 +12,7 @@ from datetime import datetime
 from LogService.models import TbCmQueryLog
 from QueryService import *
 from django.template.context import RequestContext
+import time
 
 USE_TZ = getattr(settings, 'USE_TZ', False)
 
@@ -59,6 +60,7 @@ def executeQuery(request):
     except Exception, e:
         resultData['query_id']=queryId
         resultData['query_text']=queryId
+        data["data"] = ''
         data["result"] = "false"
         print e
     
@@ -126,6 +128,7 @@ def insertQueryLog(user_id, query_id, query_text, startTime, finishTime):
     cmQueryLog.user = user_id
     cmQueryLog.query_id = query_id
     cmQueryLog.query_text = query_text
+    cmQueryLog.execute_time = datetime_to_milliseconds(finishTime) - datetime_to_milliseconds(startTime);
     cmQueryLog.query_start_dtm = startTime
     cmQueryLog.query_end_dtm = finishTime
     
@@ -133,6 +136,18 @@ def insertQueryLog(user_id, query_id, query_text, startTime, finishTime):
     
 def get_current_time():
     if USE_TZ:
-        return datetime.utcnow().replace(tzinfo=utc)
+        return timezone.make_aware(datetime.now(),timezone.get_default_timezone())
     else:
-        return datetime.now()
+        return timezone.now()
+
+def datetime_to_milliseconds(some_datetime_object):
+    '''
+    timetuple = some_datetime_object.timetuple()
+    timestamp = time.mktime(timetuple)
+    return timestamp * 1000.0
+    '''
+    ms = time.mktime(some_datetime_object.utctimetuple()) * 1000
+    ms += getattr(some_datetime_object, 'microseconds', 0) / 1000
+    
+    return int(ms)
+    

@@ -22,7 +22,7 @@
     
     <query id="selectDictionaly" description="Select dictionaly data">
         <sql>
-            SELECT * FROM dictionaly WHERE category_id = %d
+            SELECT * FROM dictionaly WHERE category_id = %s
         </sql>
         <parameter>
             <param id="category_id"  description="category id"/>
@@ -34,7 +34,7 @@
             SELECT d.*
             FROM dictionaly d
             INNER JOIN dictionaly_tag dt ON d.dictionaly_idx = dt.dictionaly_idx
-            WHERE d.category_id = %d AND dt.tag_text like %s
+            WHERE d.category_id = %s AND dt.tag_text like %s
         </sql>
         <parameter>
             <param id="category_id" description="category id"/>
@@ -53,7 +53,7 @@
     
     <query id="insertWordSearchCount" description="Insert word search count">
         <sql>
-            INSERT INTO search_text(search_text, search_count) VALUES(%s, %d)
+            INSERT INTO search_text(search_text, search_count) VALUES(%s, %s)
         </sql>
         <parameter>
             <param id="searchTag" description="search tag"/>
@@ -63,7 +63,7 @@
     
     <query id="updateWordSearchCount" description="Update word search count">
         <sql>
-            UPDATE search_text SET search_count = %d WHERE search_text = %s
+            UPDATE search_text SET search_count = %s WHERE search_text = %s
         </sql>
         <parameter>
             <param id="search_count" description="search count"/>
@@ -73,7 +73,7 @@
     
     <query id="updateDictionalyHitCount" description="Update dictionaly hist count">
         <sql>
-            UPDATE dictionaly SET hit_count = hit_count + 1 WHERE dictionaly_idx = %d
+            UPDATE dictionaly SET hit_count = hit_count + 1 WHERE dictionaly_idx = %s
         </sql>
         <parameter>
             <param id="dictionaly_idx" description="dictionaly id"/>
@@ -82,7 +82,7 @@
     
     <query id="deleteFavoriteSentenceCell" description="Delete favorite sentence cell">
         <sql>
-            UPDATE dictionaly SET hit_count = 0 WHERE dictionaly_idx = %d
+            UPDATE dictionaly SET hit_count = 0 WHERE dictionaly_idx = %s
         </sql>
         <parameter>
             <param id="dictionaly_idx" description="dictionaly id"/>
