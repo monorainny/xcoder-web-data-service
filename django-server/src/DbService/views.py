@@ -57,6 +57,8 @@ def executeQuery(request):
         data["result"] = "true"
         data["data"] = result
     except Exception, e:
+        resultData['query_id']=queryId
+        resultData['query_text']=queryId
         data["result"] = "false"
         print e
     

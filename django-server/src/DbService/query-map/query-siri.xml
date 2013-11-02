@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<data xmlns="data">
+    <query id="selectCategory" description="Select category type data">
+        <sql>
+            SELECT * FROM category_type ORDER BY orderby_index
+        </sql>
+    </query>
+    
+    <query id="selectCategoryWithTag" description="Select category type data for search tag">
+        <sql>
+            SELECT ct.category_idx, ct.category_id, ct.category_name || ' (' || count(*) || ')' as category_name, ct.orderby_index 
+            FROM category_type ct 
+            INNER JOIN dictionaly d ON ct.category_idx = d.category_id 
+            INNER JOIN dictionaly_tag dt ON d.dictionaly_idx = dt.dictionaly_idx
+            WHERE dt.tag_text like %s
+            GROUP BY ct.category_idx
+        </sql>
+        <parameter>
+            <param id="searchTag"  description="search tag"/>
+        </parameter>
+    </query>
+    
+    <query id="selectDictionaly" description="Select dictionaly data">
+        <sql>
+            SELECT * FROM dictionaly WHERE category_id = %d
+        </sql>
+        <parameter>
+            <param id="category_id"  description="category id"/>
+        </parameter>
+    </query>
+    
+    <query id="selectDictionalyWithTag" description="Select dictionaly data for search tag">
+        <sql>
+            SELECT d.*
+            FROM dictionaly d
+            INNER JOIN dictionaly_tag dt ON d.dictionaly_idx = dt.dictionaly_idx
+            WHERE d.category_id = %d AND dt.tag_text like %s
+        </sql>
+        <parameter>
+            <param id="category_id" description="category id"/>
+            <param id="searchTag" description="search tag"/>
+        </parameter>
+    </query>
+    
+    <query id="selectWordSearchCount" description="Select word search count">
+        <sql>
+            SELECT * FROM search_text where search_text = %s
+        </sql>
+        <parameter>
+            <param id="searchTag" description="search tag"/>
+        </parameter>
+    </query>
+    
+    <query id="insertWordSearchCount" description="Insert word search count">
+        <sql>
+            INSERT INTO search_text(search_text, search_count) VALUES(%s, %d)
+        </sql>
+        <parameter>
+            <param id="searchTag" description="search tag"/>
+            <param id="search_count" description="search count"/>
+        </parameter>
+    </query>
+    
+    <query id="updateWordSearchCount" description="Update word search count">
+        <sql>
+            UPDATE search_text SET search_count = %d WHERE search_text = %s
+        </sql>
+        <parameter>
+            <param id="search_count" description="search count"/>
+            <param id="searchTag" description="search tag"/>
+        </parameter>
+    </query>
+    
+    <query id="updateDictionalyHitCount" description="Update dictionaly hist count">
+        <sql>
+            UPDATE dictionaly SET hit_count = hit_count + 1 WHERE dictionaly_idx = %d
+        </sql>
+        <parameter>
+            <param id="dictionaly_idx" description="dictionaly id"/>
+        </parameter>
+    </query>
+    
+    <query id="deleteFavoriteSentenceCell" description="Delete favorite sentence cell">
+        <sql>
+            UPDATE dictionaly SET hit_count = 0 WHERE dictionaly_idx = %d
+        </sql>
+        <parameter>
+            <param id="dictionaly_idx" description="dictionaly id"/>
+        </parameter>
+    </query>
+    
+    <query id="selectDictionalyOrderByHitCount" description="Select dictionaly order by hit count">
+        <sql>
+            SELECT * FROM dictionaly WHERE hit_count > 0 ORDER BY hit_count DESC LIMIT 10
+        </sql>
+    </query>
+    
+    <query id="selectWordOrderBySearchCount" description="Select word order by search count">
+        <sql>
+            SELECT * FROM search_text ORDER BY search_count DESC LIMIT 10
+        </sql>
+    </query>
+    
+    <query id="deleteFavoriteWord" description="Delete favorite word">
+        <sql>
+            DELETE FROM search_text WHERE search_text = %s
+        </sql>
+        <parameter>
+            <param id="search_text" description="dsearch text"/>
+        </parameter>
+    </query>
+</data> 
+

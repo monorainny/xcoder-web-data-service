@@ -15,7 +15,7 @@ class QueryService(object):
         global engine
         
         if engine is None:
-            engine = create_engine("mysql://root:xcoder@14.63.199.221/WebDataRestService", pool_recycle=3600)
+            engine = create_engine("mysql://root:xcoder@14.63.199.221/WebDataRestService?charset=utf8&use_unicode=0", pool_recycle=3600)
             print("Create Engine")
     
     def __call__(self):
@@ -34,9 +34,11 @@ class QueryService(object):
         try:
             try:
                 executeQuery = queryInfo["query"]
-                resultData['query_id'] = executeQuery
+                resultData['query_id'] = queryId
+                resultData['query_text'] = executeQuery
             except:
                 executeQuery = queryId
+                resultData['query_id'] = 'User Define Query'
                 resultData['query_text'] = executeQuery
             
             if not dict:
@@ -53,7 +55,9 @@ class QueryService(object):
         
         print("query exeute success : " + queryId)
         
-        if resultFlag and result is not null:   
+        resultData['result'] = []
+        
+        if resultFlag and result is not null and result.rowcount != 0:   
             resultList = []
             
             for raw in result:
