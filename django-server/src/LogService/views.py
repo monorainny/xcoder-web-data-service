@@ -92,7 +92,7 @@ def getDataToDataType(data_type, search, rows, page, sidx, sord):
             query_log = TbCmUserAuth.objects.all()
         elif data_type == 'admin':
             query_log = TbCmUserAuth.objects.all()
-    except Exception, e:
+    except:
         return HttpResponse('검색 결과가 없습니다.')
     
     return query_log

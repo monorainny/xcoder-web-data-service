@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<data xmlns="data">
+    <query id="getMenuList" description="Select Menu List">
+        <sql>
+            select 
+				lvl, 
+				id, 
+				IFNULL(name,'') name, 
+				IFNULL(parent_id,'') parent_id, 
+				IFNULL(dummy_yn,'') dummy_yn, 
+				IFNULL(detail_name,'') detail_name 
+			from MENU
+			where lvl = %s and parent_id = %s 
+			order by sort_key asc
+        </sql>
+        <parameter>
+            <param id="lvl"  description="lvl"/>
+            <param id="parent_id"  description="parent_id"/>
+        </parameter>
+    </query>
+    
+    <query id="getContents" description="Select Content">
+        <sql>
+            select 
+            	IFNULL(name,'') name, 
+            	IFNULL(id,'') id, 
+            	IFNULL(detail_name,'') detail_name, 
+            	IFNULL(content_h,'') content_h, 
+            	IFNULL(content_m,'') content_m, 
+            	IFNULL(content,'') content 
+            from CONTENT 
+            where id = %s
+        </sql>
+        <parameter>
+            <param id="id"  description="content id"/>
+        </parameter>
+    </query>
+    
+    <query id="getInitialData" description="Select Initial Data">
+        <sql>
+            select 
+            	lvl, 
+            	id, 
+            	name, 
+            	parent_id, 
+            	dummy_yn 
+            from MENU 
+            where lvl = %s
+            order by sort_key asc
+        </sql>
+        <parameter>
+            <param id="lvl" description="lvl"/>
+        </parameter>
+    </query>
+</data> 
+
