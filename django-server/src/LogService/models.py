@@ -28,7 +28,7 @@ class TbCmQuery(models.Model):
     @param action_type : 쿼리 수행 구분 타입
     @param regist_user : 쿼리 등록자
     """
-    query_id = models.CharField(max_length=20,null=True)
+    query_id = models.CharField(max_length=32,null=True)
     query_desc = models.CharField(max_length=200,null=False)
     query_text = models.TextField()
     action_type = models.CharField(max_length=1,null=False)
