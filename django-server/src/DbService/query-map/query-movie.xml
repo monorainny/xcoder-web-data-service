@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<data xmlns="data">
+    <query id="selectMenuList" description="Menu list info">
+        <sql>
+            select IFNULL(id,'') ID, IFNULL(name,'') NAME from menu where category = %s and del_yn = 'N' order by sort_seq desc
+        </sql>
+        <parameter>
+            <param id="category" description="menu for category type id"/>
+        </parameter>
+    </query>
+    
+    <query id="selectContentList" description="Content list info">
+        <sql>
+            select distinct a.seq, IFNULL(a.id,'') ID,IFNULL(a.subject,'') SUBJECT, IFNULL(a.o_subject,'') O_SUBJECT,IFNULL(a.memo,'') MEMO, IFNULL(a.memo1,'') MEMO1, IFNULL(a.img,'') IMG, IFNULL(a.etc,'') ETC, IFNULL(a.url,'') URL, IFNULL(a.daum_url,'') DURL, IFNULL(b.id,'') F_ID 
+            from content a  
+            LEFT OUTER JOIN favorites b ON a.seq = b.id where a.id = %s and a.id != '201200' order by a.seq asc
+        </sql>
+        <parameter>
+            <param id="id" description="content id"/>
+        </parameter>
+    </query>
+    
+    <query id="selectContentSeq" description="Content sequance info">
+        <sql>
+            select distinct a.seq, IFNULL(a.id,'') ID,IFNULL(a.subject,'') SUBJECT,IFNULL(a.o_subject,'') O_SUBJECT, IFNULL(a.memo,'') MEMO, IFNULL(a.memo1,'') MEMO1, IFNULL(a.img,'') IMG, IFNULL(a.etc,'') ETC, IFNULL(a.url,'') URL, IFNULL(a.daum_url,'') DURL, IFNULL(b.id,'') F_ID 
+            from content a  
+            LEFT OUTER JOIN favorites b ON a.seq = b.id where a.seq = %s and a.id != '201200'
+        </sql>
+        <parameter>
+            <param id="seq" description="content id"/>
+        </parameter>
+    </query>
+    
+    <query id="selectRecomContentList" description="recom content list info">
+        <sql>
+            select distinct a.seq, IFNULL(a.id,'') ID,IFNULL(a.subject,'') SUBJECT,IFNULL(a.o_subject,'') O_SUBJECT, IFNULL(a.memo,'') MEMO, IFNULL(a.memo1,'') MEMO1, IFNULL(a.img,'') IMG, IFNULL(a.etc,'') ETC, IFNULL(a.url,'') URL, IFNULL(a.daum_url,'') DURL, IFNULL(b.id,'') F_ID 
+            from content a  
+            LEFT OUTER JOIN favorites b ON a.seq = b.id where a.recom = %s and a.id != '201200' order by a.subject asc
+        </sql>
+        <parameter>
+            <param id="id" description="content id"/>
+        </parameter>
+    </query>
+    
+    <query id="selectClassContentList" description="Class content list info">
+        <sql>
+            select distinct a.seq, IFNULL(a.id,'') ID,IFNULL(a.subject,'') SUBJECT,IFNULL(a.o_subject,'') O_SUBJECT, IFNULL(a.memo,'') MEMO, IFNULL(a.memo1,'') MEMO1, IFNULL(a.img,'') IMG, IFNULL(a.etc,'') ETC, IFNULL(a.url,'') URL, IFNULL(a.daum_url,'') DURL, IFNULL(b.id,'') F_ID 
+            from content a  
+            LEFT OUTER JOIN favorites b ON a.seq = b.id where a.class = %s and a.id != '201200' order by a.seq asc
+        </sql>
+        <parameter>
+            <param id="class" description="content class"/>
+        </parameter>
+    </query>
+    
+    <query id="selectPopularContentList" description="Popular content list info">
+        <sql>
+            select distinct a.seq, IFNULL(b.sort,'') SORT, IFNULL(a.class,'') ID, IFNULL(a.subject,'') SUBJECT, IFNULL(a.o_subject,'') O_SUBJECT,IFNULL(b.etc,'') MEMO, IFNULL(a.memo1,'') MEMO1, IFNULL(a.img,'') IMG, IFNULL(a.etc,'') ETC, IFNULL(a.url,'') URL, IFNULL(a.daum_url,'') DURL, IFNULL(c.id,'') F_ID 
+            from content a 
+            LEFT OUTER JOIN favorites c ON a.seq = c.id, code b where a.popular = b.seq and a.class = %s and a.id != '201200' order by b.sort asc
+        </sql>
+        <parameter>
+            <param id="class" description="content class"/>
+        </parameter>
+    </query>
+    
+    <query id="selectContentAllList" description="Content all list info">
+        <sql>
+            select distinct a.seq, IFNULL(a.id,'') ID,IFNULL(a.subject,'') SUBJECT, IFNULL(a.o_subject,'') O_SUBJECT, IFNULL(a.memo,'') MEMO, IFNULL(a.memo1,'') MEMO1, IFNULL(a.img,'') IMG, IFNULL(a.etc,'') ETC, IFNULL(a.url,'') URL, IFNULL(a.daum_url,'') DURL, IFNULL(b.id,'') F_ID 
+            from content a  
+            LEFT OUTER JOIN favorites b ON a.seq = b.id where (a.id like '2%' or a.id like '3%' or a.id like '4%') and a.id != '201200' order by a.subject asc
+        </sql>
+    </query>
+    
+    <query id="selectContentAllListSearch" description="Content all list search result">
+        <sql>
+            select distinct a.seq, IFNULL(a.id,'') ID,IFNULL(a.subject,'') SUBJECT, IFNULL(a.o_subject,'') O_SUBJECT, IFNULL(a.memo,'') MEMO, IFNULL(a.memo1,'') MEMO1, IFNULL(a.img,'') IMG, IFNULL(a.etc,'') ETC, IFNULL(a.url,'') URL, IFNULL(a.daum_url,'') DURL, IFNULL(b.id,'') F_ID 
+            from content a
+            LEFT OUTER JOIN favorites b ON a.seq = b.id  where a.SUBJECT like %s and a.id != '201200'
+        </sql>
+        <parameter>
+            <param id="searchTag" description="search tag"/>
+        </parameter>
+    </query>
+    
+    <query id="selectFavorites" description="Favorites info">
+        <sql>
+            select distinct a.seq, IFNULL(a.id,'') ID, IFNULL(a.subject,'') SUBJECT, IFNULL(a.o_subject,'') O_SUBJECT, IFNULL(a.memo,'') MEMO, IFNULL(a.memo1,'') MEMO1, IFNULL(a.img,'') IMG, IFNULL(a.etc,'') ETC, IFNULL(a.url,'') URL, IFNULL(a.daum_url,'') DURL, IFNULL(b.id,'') F_ID 
+            from content a, favorites b 
+            where a.seq = b.id and a.id != '201200' order by b.seq asc
+        </sql>
+    </query>
+    
+    <query id="selectAllFavorites" description="Favorites all list info">
+        <sql>
+            select id from favorites
+        </sql>
+    </query>  
+    
+    <query id="insertFavorites" description="Add Favorites info">
+        <sql>
+            INSERT INTO favorites(id) VALUES(%s)
+        </sql>
+        <parameter>
+            <param id="id" description="favorites id"/>
+        </parameter>
+    </query>    
+    
+    <query id="deleteFavorites" description="Delete Favorites info">
+        <sql>
+            DELETE FROM favorites WHERE id = %s
+        </sql>
+        <parameter>
+            <param id="id" description="favorites id"/>
+        </parameter>
+    </query> 
+    
+    <query id="selectOstList" description="Ost info list">
+        <sql>
+            select IFNULL(NAME,'') NAME, IFNULL(K_TITLE,'') KTITLE, IFNULL(TITLE,'') TITLE, IFNULL(URL,'') URL 
+            from OST 
+            where ID = %s and OST_TYPE = %s  
+            order by SORT desc
+        </sql>
+        <parameter>
+            <param id="id" description="ost id"/>
+            <param id="type" description="ost type"/>            
+        </parameter>
+    </query>    
+</data> 
+

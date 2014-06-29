@@ -1,0 +1,145 @@
+body, table, tr, td, select, input, textarea {
+	font-family:굴림, seoul, arial, verdana;
+	font-size:12px;
+	color:#000000;
+	word-break:break-all;
+	scrollbar-face-color:#DDDDDD;
+	scrollbar-highlight-color: #CCCCCC;
+	scrollbar-shadow-color: #CCCCCC;
+	scrollbar-3dlight-color: #F5F5F5;
+	scrollbar-darkshadow-color: #F5F5F5;
+	scrollbar-track-color: #F0F0F0;
+	scrollbar-arrow-color: #FFFFFF;
+}
+
+a:link , a:active , a:visited {color:#113377; text-decoration:none;}
+a:hover {color:#2266BB; text-decoration:underline;}
+
+a.s11:link , a.s11:visited , a.s11:active {color:#FFFFFF; text-decoration:none;}
+a.s11:hover {color:#DDEEFF; text-decoration:none;}
+
+a.cotxt:link , a.cotxt:active , a.cotxt:visited , a.cotxt:hover {color:#333333; text-decoration:none;}
+
+a.gray:link , a.gray:active , a.gray:visited {color:#666666; text-decoration:none;}
+a.gray:hover {color:#333333; text-decoration:underline;}
+
+a.gray_paper:link , a.gray_paper:active , a.gray_paper:visited {color:#666666; text-decoration:none; line-height:130%;}
+a.gray_paper:hover {color:#666666; text-decoration:underline; line-height:130%;}
+
+a.gray2:link , a.gray2:active , a.gray2:visited {color:#222222; text-decoration:none;}
+a.gray2:hover {color:#666666; text-decoration:underline;}
+
+a.orange:link , a.orange:active , a.orange:visited {color:#FF3300; text-decoration:none;}
+a.orange:hover {color:#FF6600; text-decoration:underline;}
+
+a.sub:link , a.sub:active , a.sub:visited {color:#666666; text-decoration:none;}
+a.sub:hover {color:#000000; text-decoration:none;}
+
+a.sub1:link , a.sub1:active , a.sub1:visited {color:#4E5E77; text-decoration:none;}
+a.sub1:hover {color:#112233; text-decoration:none;}
+
+a.sub2:link , a.sub2:active , a.sub2:visited {color:#9D9764; text-decoration:none;}
+a.sub2:hover {color:#666136; text-decoration:none;}
+
+a.sub3:link , a.sub3:active , a.sub3:visited {color:#666666; text-decoration:none;}
+a.sub3:hover {color:#FE8020; text-decoration:none; font-weight:bold;}
+
+a.sub4:link , a.sub4:active , a.sub4:visited {color:#808080; text-decoration:none;}
+a.sub4:hover {color:#FF6633; text-decoration:underline;}
+
+a.nv1:link , a.nv1:active , a.nv1:visited {color:#666666; text-decoration:none;}
+a.nv1:hover {color:#222222; text-decoration:none;}
+
+a.copyright:link , a.copyright:active , a.copyright:visited {color:#E8E8E8; text-decoration:none;}
+a.copyright:hover {color:#FFFFFF; text-decoration:none;}
+
+a.brown_dark:link , a.brown_dark:active , a.brown_dark:visited {color:#7B5A4F; text-decoration:none;}
+a.brown_dark:hover {color:#7B5A4F; text-decoration:underline;}
+
+a.pr_c022:link , a.pr_c022:active , a.pr_c022:visited {color:#38768F; text-decoration:none;font-size:11px;}
+a.pr_c022:hover {color:#3366CC; text-decoration:underline;font-size:}
+
+.gray {color:#333333;}
+.gray3 {color:#7D7D7D; line-height:130%;}
+.gray4 {color:#666666; line-height:130%;}
+.gray_b {color:#333333; font-weight:bold;}
+.orange {color:#FF3300;}
+.orange_b {color:#FF3300; font-weight:bold;}
+.pink {color:#FF4A85;}
+.pink_b {color:#FF4A85; font-weight:bold;}
+.blue {color:#0099CC; }
+.blue_b {color:#0099CC; font-weight:bold;}
+.brown {color:#AC5009;}
+.brown_b {color: #AC5009; font-weight:bold;}
+.green {color:#5B7243;}
+.green_b {color:#5B7243; font-weight:bold;}
+.subtitle {color:#FF3300; font-size:14px; font-weight:bold;}
+
+.paper {color:#5A5A5A; line-height:130%;}
+.paper150 {color:#545454; line-height:150%;}
+.verdana {font-family:verdana; font-size:9px;}
+.verdana_b {font-family:verdana; font-size:9px; font-weight:bold;}
+.verdana2  {font-family:verdana; font-size:14px; font-weight:bold;}
+.tahoma {font-family:Tahoma; font-size:9px;}
+.num {font-family:verdana; font-size:9px; letter-spacing:-1px;}
+
+.black_130 {color:#000000; line-height:130%;}
+.gray_130 {color:#333333; line-height:130%;}
+.gray_150 { color:#333333; line-height:150%; }
+.black_150 { color:#000000; line-height:150%; }
+.px11ls {font-size:11px; letter-spacing:-1px;}
+.f11 {font-size:11px; letter-spacing:-1px;}
+.f11_my {font-size:11px; letter-spacing:-1px;; line-height: 130%;}
+a.f11_my:link ,a.f11_my:visited,a.f11_my:active{color:#333333; text-decoration:none;}
+a.f11_my:hover{color:#336699; text-decoration:none;}
+.f14 {font-size:14px; font-weight:bold; letter-spacing:-1px;}
+.f16 {font-size:16px; font-family:"굴림"; font-weight:bold; letter-spacing:-1px; line-height:130%;}
+.paging {font-family:verdana; font-size:9px; color:#333333;}
+.paging2 {font-family:verdana; font-size:11px; color:#333333;}
+.bbssm {font-family:verdana; font-size:9px; color:#333333;}
+.bbsla {font-family:verdana; font-size:11px; color:#333333;}
+.v_out {position:relative; left:0px; top:0px; border:1px solid #999999; background-color:#FFFFFF;}
+.v_in {position:absolute; left:-1px; top:-1px;}
+
+.td_gray {
+	color:#333333;
+ 	border-bottom-width:1px;
+	border-bottom-color:#E6E6E6;
+	border-bottom-style:solid;
+}
+
+.itext01 { font-size:11px; letter-spacing:-1; }
+.itext02 { color:#333333; font-size:11px; letter-spacing:-1; }
+.itext03 { color:#FF8007; font-size:11px; letter-spacing:-1; }
+
+.none:link, .none:active, .none:visited { color:#666666; text-decoration:none; }
+.none:hover { color:#666666; text-decoration:none; }
+
+.bgnorepeat{background-repeat: no-repeat;}
+
+.input {border: solid 1px #333333; color:#666666; padding:2 0 0 2;}
+
+.input1 {border: solid 1px #333333; color:#666666; line-height: 130%;}
+
+.input2 {border: solid 1px #333333; color:#666666;}
+
+.input3 {border: solid 1px #999999;}
+
+.input4 {border: 1px B0B0B0 solid;}
+
+.textarea {border: solid 1px #AEAEAE;}
+
+input.cbox {height: 15px;}
+
+.diary_No {font-family: "Verdana", "Arial", "Helvetica", "sans-serif"; font-size: 21px; font-weight: bold; color: #0099CC}
+.diary_day {font-family: "Verdana", "Arial", "Helvetica", "sans-serif"; font-size: 10px; color: #999999; font-weight: bold}
+.orange_02 {color: #FF6E00}
+.diary_monthly {font-family: "Verdana", "Arial", "Helvetica", "sans-serif"; font-size: 9px; font-weight: bold; color: #3594ba}
+.diary_weekly {font-family: "Verdana", "Arial", "Helvetica", "sans-serif"; font-size: 19px; font-weight: bold; color: #58ACCF}
+
+.update {color:#CF6B00;}
+.px11_mail {font-size:11px; letter-spacing:-2px; ; color: #FFFFFF}
+.f11_my { font-size:11px; letter-spacing:-1px;; line-height: 130% }
+
+.codiary01:link, .codiary01:active, .codiary01:visited {color:#777777; font-size:11px; text-decoration:none;}
+.codiary01:hover {color:#FF6E00; font-size:11px; text-decoration:none;}

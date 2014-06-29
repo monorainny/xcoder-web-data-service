@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+ 
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="robots" content="noarchive" />
+	<title>Study Maching System</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<link href="http://api.mobilis.co.kr/webfonts/css/?fontface=NanumGothicWeb" rel="stylesheet" />
+	<link href="http://fonts.googleapis.com/css?family=Sansita+One" rel="stylesheet" />
+	
+	<script type="text/javascript">
+	    $(document).ready(function() {
+			$('#query').click(function (e) {
+				var queryId= $('textarea[name=queryId]');
+	    		var queryData= $('textarea[name=queryData]');
+	    		
+	    		if(queryId.val() == "") {
+					alert("Error: queryId cannot be blank!");
+					queryId.focus();
+					return false;
+				}
+	    		
+	    		var data = '&queryId='+queryId.val();
+	    		data += '&queryData='+queryData.val();
+	     		
+	    		$.ajaxSetup({ 
+					beforeSend: function(xhr, settings) {
+	    			function getCookie(name) {
+	 					var cookieValue = null;
+	 				
+	 					if (document.cookie && document.cookie != '') {
+	    	 				var cookies = document.cookie.split(';');
+	    	 			
+	    	 				for (var i = 0; i < cookies.length; i++) {
+	  							var cookie = jQuery.trim(cookies[i]);
+	  						
+	  							// Does this cookie string begin with the name we want?
+	  							if (cookie.substring(0, name.length + 1) == (name + '=')) {
+	    	  						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+										break;
+	  							}
+							}
+	 					}
+	 					
+	 					return cookieValue;
+						}
+					
+		    			xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+		 			} 
+		 		});
+	    		
+	     		$.ajax({
+	 				url: "/query/execute/",
+	 				type: "POST",
+	 				//pass the data       
+	 				data: data,
+	 				//Do not cache the page
+	 				cache: false,
+	 				//success
+	 				success: function (data) {
+	 					var resultData;
+	 					
+	 					resultData = data.result;
+						
+						$.each( data.data, function( i, item ) {
+							for (property in item) 
+							{
+								resultData += property + ': ' + item[property]+'; ';
+						    }
+							resultData += "//////////////";							
+					    });
+						
+						
+						$("#regist_result").text(resultData);
+					}
+	    		});
+	    	});
+	     	
+	    	$('#update').click(function (e) {
+	    		var queryId= $('textarea[name=queryId]');
+	    		var queryData= $('textarea[name=queryData]');
+	    		
+	    		if(queryId.val() == "") {
+					alert("Error: queryId cannot be blank!");
+					queryId.focus();
+					return false;
+				}
+	    		
+	    		var data = '&queryId='+queryId.val();
+	    		data += '&queryData='+queryData.val();
+	    		
+	    		$.ajaxSetup({ 
+					beforeSend: function(xhr, settings) {
+	    			function getCookie(name) {
+	 					var cookieValue = null;
+	 				
+	 					if (document.cookie && document.cookie != '') {
+	    	 				var cookies = document.cookie.split(';');
+	    	 			
+	    	 				for (var i = 0; i < cookies.length; i++) {
+	  							var cookie = jQuery.trim(cookies[i]);
+	  						
+	  							// Does this cookie string begin with the name we want?
+	  							if (cookie.substring(0, name.length + 1) == (name + '=')) {
+	    	  						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+										break;
+	  							}
+							}
+	 					}
+	 					
+	 					return cookieValue;
+						}
+					
+		    			xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+		 			} 
+		 		});
+	    		
+	     		$.ajax({
+	 				url: "/query/update/",
+	 				type: "POST",
+	 				//pass the data       
+	 				data: data,
+	 				//Do not cache the page
+	 				cache: false,
+	 				//success
+	 				success: function (data) {
+						$("#regist_result").text(data.result);
+					}
+	    		});
+	    	});
+		});
+	</script>
+</head>
+<body>
+
+	<form id="registform" name="form" method="post">{% csrf_token %}
+		수행 쿼리
+		<div>
+			<TextArea id="queryId" type="queryId" name="queryId" cols="60" rows="10" value="{{ queryId }}" required>Query ID or Raw Query</TextArea>
+		</div>
+		
+		</p>
+		
+		쿼리 파라미터
+		<div horizonAlign="top">
+			<TextArea id="queryData" type="queryData" name="queryData" cols="60" rows="10" value="{{ queryData }}">param1='value1'|param2='value2'</TextArea>
+		</div>
+		
+		<div style="width : 440px; padding : 5px;" align="right">
+			<input class="button" type="button" id="query" value="ExecuteQuery" />
+			<input class="button" type="button" id="update" value="ExecuteUpdate" />
+		</div>
+		
+		<div class="spacer"></div>
+	</form>
+	
+	<dvi id="regist_result"></dvi>
+</body>
+</html>
