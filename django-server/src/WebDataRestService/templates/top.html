@@ -1,0 +1,44 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+<link rel="stylesheet" href="http://jkdrama.cafe24.com/css/mobizen1.css" type="text/css">
+
+ <table width="100%"  border=0 height="45" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td width="10%" align="center">
+			<table border=0>
+				<tr>
+					<td>
+						<font size="6.5px;">DCAF</font><!-- <img src="/images/ec_top_logo_img.jpg"> -->
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td width="70%" align="center">
+			<table border=0>
+				<tr>
+					<td> Data Connect Assist Factory
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td width="20%" align="right" style="padding-top:15px;padding-right:10px;">
+			<table border=0>
+				<tr>
+					<td>
+						{% if user.username %}
+						<p>
+							{{ user.username }}
+							<a href="/accounts/info" target="main">info</a>
+							<a href="/accounts/logout">logout</a>
+						</p>
+						{% else %}
+						<p>
+							<a href="/accounts/regist" target="main">regist</a>
+							<a href="/accounts/login" target="main">login</a>
+						</p>
+						{% endif %}
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>          

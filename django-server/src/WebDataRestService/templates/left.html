@@ -1,0 +1,52 @@
+<!doctype html> 
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+	<title>jQuery UI Accordion - Default functionality</title>
+	<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+	<link rel="stylesheet" href="http://jkdrama.cafe24.com/css/mobizen1.css" type="text/css">
+	<link rel="stylesheet" href="http://jkdrama.cafe24.com/css/style.css" type="text/css"/>
+	
+	<script>    
+		$(function() {        
+			$( "#accordion" ).accordion();
+		});   
+	</script>
+</head>
+ <script language="javascript">
+ <!-- 
+ //-->
+ </script>
+<body>
+
+<div id="accordion">  
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+	<h3>사용정보 조회</h3>  
+	<div> 
+	    <p><a href="/jqgrid_main/schema" target="main">테이블 스키마 조회</a></p>
+	    <p><a href="/jqgrid_main/account" target="main">사용자 조회</a></p>
+	    <p><a href="/jqgrid_main/usage" target="main">사용공간 조회</a></p>
+	</div>  
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+	<h3>통계관리</h3> 
+	<div>
+	    <p><a href="/jqgrid_main/history" target="main">쿼리 실행 조회</a></p>
+	    <p><a href="/jqgrid_main/statistic" target="main">쿼리 실행 빈도 조회</a></p>
+	</div>    
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+	<h3>서비스 환경 설정</h3>    
+	<div> 
+	    <p><a href="/jqgrid_main/connect" target="main">접속정보 설정</a></p>
+	    <p><a href="/jqgrid_main/admin" target="main">서비스 관리자 관리</a></p>
+	</div>
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+ 	<h3>실행관리</h3>
+	<div>     
+		<p><a href="/DbQuery" target="main">쿼리실행</a></p>
+	</div>
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------> 	
+</div>
+</body>
+</html>	

@@ -1,0 +1,131 @@
+<html>
+	<head>
+		<title></title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<script type="text/javascript">
+		    $(document).ready(function() {
+		    	//if submit button is clicked
+		    	$('#modify').click(function (e) {
+		    		var mail= $('input[name=mail]');
+		    		var password= $('input[name=password]');
+		    		var confirm_password= $('input[name=confirm_password]');
+		    		var name= $('input[name=name]');
+		    		var nickname= $('input[name=nickname]');
+		    		var sex= $('input[name=sex]');
+		    		var birthday= $('input[name=birthday]');
+		    		
+		    		if(mail.val() == "") {
+						alert("Error: Email cannot be blank!");
+						mail.focus();
+						return false;
+					}
+		    		
+		    		if(password.val() == "") {
+						alert("Error: Password cannot be blank!");
+						password.focus();
+						return false;
+					}
+		    		
+		    		if (password.val() != confirm_password.val())
+		   			{
+		    			alert("The Password and verified password does not match!");
+		    			confirm_password.focus();
+		   				return false;
+		   			}
+		    		
+		    		if(name.val() == "") {
+						alert("Error: Name cannot be blank!");
+						name.focus();
+						return false;
+					}
+		    		
+		    		var data = '&mail='+mail.val();
+		    		data += '&password='+password.val();
+		    		data += '&name='+name.val();
+		    		
+		    		$.ajaxSetup({ 
+		 				beforeSend: function(xhr, settings) {
+		        			function getCookie(name) {
+		     					var cookieValue = null;
+		     				
+		     					if (document.cookie && document.cookie != '') {
+		        	 				var cookies = document.cookie.split(';');
+		        	 			
+		        	 				for (var i = 0; i < cookies.length; i++) {
+		      							var cookie = jQuery.trim(cookies[i]);
+		      						
+		      							// Does this cookie string begin with the name we want?
+		      							if (cookie.substring(0, name.length + 1) == (name + '=')) {
+		        	  						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		   									break;
+		      							}
+		  							}
+		     					}
+		     					
+		     					return cookieValue;
+		 					}
+		 				
+		        			xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+		     			} 
+		     		});
+		     
+		     		$.ajax({
+		 				url: "/accounts/info_modify/",
+		 				type: "POST",
+		 				//pass the data       
+		 				data: data,
+		 				//Do not cache the page
+		 				cache: false,
+		 				//success
+		 				success: function (data) {
+							$("#regist_result").text(data.result_message);
+						}
+		    		});
+		    	});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="stylized" class="myform">
+			<form id="registform" name="form" method="post">
+				<h1>Member Info</h1>
+				<p>Member Info....</p>
+				
+				<p>
+				<label>Email
+				<span class="small">Add your Email Address</span>
+				</label>
+				<input id="mail" type="email" name="mail" length="60" value="{{ user_id }}" required placeholder="Input Email Address. Example) email@email.com" />
+				</p>
+				
+				<p>
+				<label>Password
+				<span class="small">Add your password</span>
+				</label>
+				<input id="password" type="password" name="password" length="12" required />
+				</p>
+				
+				<p>
+				<label>Password(Re)
+				<span class="small">Add your confirm password</span>
+				</label>
+				<input id="confirm_password" type="password" name="confirm_password" length="12" required />
+				</p>
+				
+				<p>
+				<label>Name
+				<span class="small">Add your full name</span>
+				</label>
+				<input id="name" type="text" name="name" length="10" value="{{ user_name }}" required />
+				</p>
+				
+				<input class="button" type="button" id="modify" value="Modify" />
+				
+				<div class="spacer"></div>
+			</form>
+		</div>
+
+		<dvi id="regist_result"></dvi>
+	</body>
+</html>
+

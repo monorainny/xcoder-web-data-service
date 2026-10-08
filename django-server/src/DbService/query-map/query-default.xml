@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<data xmlns="data">
+   	<query id="CreateTable" description="Create User Table">
+   	    <sql>
+	   	    CREATE TABLE users (
+	            username VARCHAR PRIMARY KEY,
+	            password VARCHAR NOT NULL
+	        )
+        </sql>
+   	</query>
+   	<query id="InsertUser" description="Insert User Table">
+   	    <sql>
+	   	    INSERT INTO users (username, password) VALUES (%s, %s)
+        </sql>
+        <parameter>
+            <param id="username" description=""/>
+            <param id="password" description=""/>
+        </parameter>
+   	</query>
+   	<query id="SelectUser" description="Select User Table">
+   	    <sql>
+	   	    SELECT username, password FROM users
+        </sql>
+   	</query>
+   	
+    <query id="insertMember" description="Insert Member Table">
+        <sql>
+            INSERT INTO member
+                (name, nickname, grade, job, phone, mail, cacaotalkid, ichatid)
+            VALUES
+                (?, ?, ?, ?, ?, ?, ?, ?)
+        </sql>
+        <parameter>
+            <param id="name" description=""/>
+            <param id="nickname" description=""/>
+            <param id="grade" description=""/>
+            <param id="job" description=""/>
+            <param id="phone" description=""/>
+            <param id="mail" description=""/>
+            <param id="cacaotalkid" description=""/>
+            <param id="ichatid" description=""/>
+        </parameter>
+    </query>
+    
+    <query id="updateMember" description="Update Member Table">
+        <sql>
+            UPDATE member
+            SET 
+                name = ?, 
+                nickname = ?, 
+                grade = ?, 
+                job = ?, 
+                phone = ?, 
+                mail = ?, 
+                cacaotalkid = ?, 
+                ichatid = ?
+            WHERE no = ?
+        </sql>
+        <parameter>
+            <param id="name" description=""/>
+            <param id="nickname" description=""/>
+            <param id="grade" description=""/>
+            <param id="job" description=""/>
+            <param id="phone" description=""/>
+            <param id="mail" description=""/>
+            <param id="cacaotalkid" description=""/>
+            <param id="ichatid" description=""/>
+            <param id="no" description=""/>
+        </parameter>
+    </query>
+    
+    <query id="deleteMember" description="Delete Member Table">
+        <sql>
+            DELETE member
+            WHERE no = ?
+        </sql>
+        <parameter>
+            <param id="no" description=""/>
+        </parameter>
+    </query>
+</data> 
